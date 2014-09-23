@@ -1,0 +1,203 @@
+#! /bin/bash
+#Función que proporciona un mensaje indicando como acceder a la información de ayuda.
+help0()
+{	
+	echo "Pruebe './fn2u -h' para mas información"
+	exit 0
+}
+
+#Función que proporciona una descripción del script, su forma de uso y algunos ejemplos.
+help1()
+{
+cat <<HELP
+fn2u -- Busca dentro de un directorio especifico todos los directorios o archivos que posean dentro de sus nombres caracteres acentuados, espacios o caracteres ñ minusculas y mayusculas.
+
+USO: 
+	fn2u [OPCION] DIRECTORIO ARGUMENTO
+
+OPCION:
+	-h
+		Muestra el texto de ayuda y salir
+
+ARGUMENTO:
+	1
+		Esta opcion solo indica el nombre de los directorios y archivos encontrados dentro del directorio especificado.
+	2
+		Esta opcion renombra todos los directorios y archivos encontrados.
+
+EJEMPLO: 
+	-Buscar y renombrar directorios y archivos dentro del directorio 'mi_directorio' que contengan los caracteres nombrados anteriormente.
+	
+		fn2u mi_directorio/ 2
+
+	-Buscar y nombrar directorios y archivos dentro del directorio 'mi_directorio' que contengan los caracteres nombrados anteriormente.
+
+		fn2u mi_directorio/ 1
+
+HELP
+  exit 0	
+}
+
+#Función que permite identificar y modificar un determinado directorio
+#o archivo si posee alguno de los caracteres nombrados anteriormente.
+#Recibe como argumentos:
+#1) Archivo o directorio a analizar.
+#2) Opción proporcionada por el usuario.
+change_name()
+{
+	#Definición de la extensión adicional necesaria para renombrar un directorio o archivo 
+	#con un nombre ya existente.
+	AD="_"
+	ADD=1
+	#Definición de los caracteres que hay que sustituir y sus sustitutos.
+	old=( "ñ" "Ñ" " " "á" "Á" "é" "É" "í" "Í" "ó" "Ó" "ú" "Ú" )
+	new=( "n" "N" "_" "a" "A" "e" "E" "i" "I" "o" "O" "u" "U" )
+	#Bandera que determina si el directorio o archivo posee alguno de los caracteres indicados anteriormente.
+	flag=0
+
+	#Se almacena el path del directorio o archivo analizado en la variable path.
+	path="$( dirname "$1" )/"
+	#Se almacena el nombre del directorio o archivo analizado en la variable file.
+	file=$( basename "$1" )
+	#Se separá el path y el nombre del directorio o archivo con el fin de no modificar
+	#algun directorio que sea parte del path proporcionado inicialmente. El objetivo
+	#es solo moodificar el directorio y sus subdirectorios y archivos.
+
+	newfile=$file
+
+	#Se comprueba si el directorio o archivo analizado posee alguno de los caracteres 
+	#mencionados anteriormente y se remplazan los caracteres encontrados por sus substitutos.
+	for i in ${!old[*]} ; do
+		if [[ "$file" == *${old[i]}* ]] ; then 
+			#Con el comando sed se hace la sustitución de los caracteres respectivos.
+			newfile=`echo "$newfile" | sed "s/${old[i]}/${new[i]}/g"` 
+			#Se levanta la bandera que indica que el directorio o archivo fue modificado.
+			flag=1 
+		fi
+	done
+
+	#Si la bandera esta en alto el programa continua, si no el programa se detiene.
+	[[ $flag == 1 ]] || return 0
+
+	#Dependiendo de la opción indicada por el usuario se aplican las siguientes rutinas:
+	case $2 in
+	1)
+		#Si la opción indicada por el usuario es la número 1, se muestra el nombre del directorio
+		#o archivo que posee alguno de los caracteres indicados anteriormente.
+		echo "$1" ;;
+	2)
+		#Si la opción indicada por el usuario es el numero 2, se renombra el dorectorio o archivo
+		#que posea alguno de los caracteres indicados anteriormente.
+
+		#Si se trata de un archivo se procede de la siguiente manera:
+		if [ -f "$1" ] ; then
+			#Si el nombre modificado propuesto no existe se procede a modificarlo directamente.
+			if [ ! -f "$path$newfile" ] ; then
+				echo "renombrando $1 como $path$newfile ..."
+		    	mv "$1" "$path$newfile"
+		    #Pero si este ya existe	se le agrega al final una extensión adicional.		
+			else
+				#Se separa del nombre del archivo su nombre y extensión propia.
+				extension=".${newfile##*.}"
+				newfilename="${newfile%.*}"
+				#Se busca una extensión apropiada hasta que el nuevo nombre propuesto no exista previamente.
+				while [ -f "$path$newfilename$AD$ADD$extension" ] ; do
+					ADD=$(($ADD + 1))
+				done
+		    	echo "renombrando $1 como $path$newfilename$AD$ADD$extension ..."
+			    mv "$1" "$path$newfilename$AD$ADD$extension"
+			fi
+		#Si se trataa de un directorio se procede de la siguente manera:
+		elif [ -d "$1" ] ; then
+			#Si el nombre modificado propuesto no existe se procede a modificarlo directamente.
+			if [ ! -d "$path$newfile" ] ; then
+				echo "renombrando $1 como $path$newfile ..."
+			    mv "$1" "$path$newfile"
+			#Pero si este ya existe	se le agrega al final una extensión adicional.		
+			else
+				#Se busca una extensión apropiada hasta que el nuevo nombre propuesto no exista previamente.
+				while [ -d "$path$newfile$AD$ADD" ] ; do
+					ADD=$(($ADD + 1))
+				done
+		    	echo "renombrando $1 como $path$newfile$AD$ADD ..."
+			    mv "$1" "$path$newfile$AD$ADD"
+			fi
+		fi ;;
+	*) 
+		#Si la opción indicada no es ninguna de las dos anteriores la funció arroja un mensaje de advertencia.
+		echo "change_name: No se puede actuar usando <<$2>>: La opcion indicada no es valida" ;;
+	esac
+}
+
+#Dependiendo de los argumentos entregados por el usuario al script se aplican las siguientes rutinas:
+case $# in
+0) 
+	#Si no se entregan argumentos el script listará los directorios o archivos con caracteres 
+	#indicados anteriormente del directorio en el cual se esta ejecutando el bash.
+	dir=.
+	n=1 ;;
+1) 
+	#Si se proporciona un solo argumento, debe ser un directorio o la opción '-h'.
+
+	#Si se tratase de un directorio el script tomará por defecto la opción de listar
+	#los directorios y archivos dentro del directorio indicado que posean alguno
+	#de los caracteres indicados anteriormente. 
+	if [ -d "$1" ] ; then
+		dir=$1
+		n=1
+	#Si se tratase de la opción '-h', el script deplegará un mensaje de ayuda y se cerrará.
+	elif [[ "$1" == "-h" ]] ; then
+		help1
+	#Si no fuese ninguno de los dos casos anteriores, el script mostrará una advertencia
+	#y además recomendará al usuario ejecutar el script con la opción '-h' para recibir ayuda.
+	else	
+		echo "$0\: no se puede actuar sobre <<$1>>: No existe el directorio"
+		help0
+	fi ;;
+2)
+	#Si se proporcionan dos argumentos, el primero debe ser un directorio y el segundo una
+	#de las opciones indicadas anteriormente en el script y en el texto de ayuda.
+
+	#Si el primer argumento efectivamente se tratase de un directorio se ejecuta la siguiente rutina:
+	if [ -d "$1" ] ; then
+		dir=$1
+		#Si el segundo argumento corresponde a una de las opciones indicadas anteriormente en el 
+		#script y en el texto de ayuda, el script prosigue su ejecución.
+		if [[ $2 == 1 || $2 == 2 ]] ; then
+			n=$2 
+		#De lo contrario el script mostrará una advertencia y además recomendará 
+		#al usuario ejecutar el script con la opción '-h' para recibir ayuda.
+		else
+			echo "$0: No se puede actuar usando <<$2>>: El argumento indicado no es valido"
+			help0
+		fi
+	#Si el primer argumento entregado por el usuario no corresponde a un directorio
+	#el script mostrará una advertencia y además recomendará al usuario ejecutar
+	#el script con la opción '-h' para recibir ayuda.
+	else
+		echo "$0\: no se puede actuar sobre <<$1>>: No existe el directorio"
+		help0
+	fi ;;
+*)
+	#Si la cantidad de argumentos fueran distintos a los indicados anteriormente el 
+	#script mostrará una advertencia y además recomendará al usuario ejecutar el 
+	#script con la opción '-h' para recibir ayuda.
+	echo "$0: La cantidad de paramentros indicados no es valida"
+	help0
+esac
+
+#Se recorrerá recursivamente el directorio que se desee analizar
+for i in $dir/*
+do
+	#Si se encontrará un directorio, se llamará recursivamente al mismo script.	
+	if test -d "$i"
+	then
+		#Se llama al mismo script con el directorio encontrado.
+		$0 "$i" $n
+		#terminado el script anterior se procederá a actuar con la función change_name
+		change_name "$i" $n
+	#De lo contrario se asumirá q se trata de un archivo y se procederá a actuar con la función change_name
+	else		
+		change_name "$i" $n
+	fi
+done

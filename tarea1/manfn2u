@@ -1,0 +1,30 @@
+.\" Manpage for fn2u.
+.\" Contact oscar.silvam@alumnos.usm.cl or pascal.sigel@alumnos.usm.cl to correct errors or typos.
+.TH man 1 "13 Sep 2014" "1.0" "fn2u man page"
+.SH NAME
+fn2u \- List or modify directories and files with no valid names
+.SH SYNOPSIS
+fn2u [OPTIONS] DIRECTORY ARGUMENT
+.SH DESCRIPTION
+Search within a specific directory all directories or files with names that containing accented characters, spaces or lowercase and uppercase of ñ and list or modifies them according to the given option.
+.SH OPTIONS	
+.SH 	-h 
+Display help text and exit.
+.SH ARGUMENT
+.SH 	1
+This option only displays the name of directories and files found within the specified directory.
+.SH 	2
+This option renames all files and directories found.
+.SH EXAMPLES
+.SH 	./fn2u my_directory 2
+Search and rename directories and files within the directory 'my_directory' that contain the characters listed above.
+.SH 	./fn2u my_directory 1
+Search and list directories and files within the directory 'my_directory' that contain the characters listed above.
+.SH SEE ALSO
+mv(1), sed(1)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Oscar Silva M. (oscar.silvam@alumnos.usm.cl)
+
+Pascal Sigel O. (pascal.sigel@alumnos.usm.cl)
