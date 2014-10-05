@@ -5,28 +5,21 @@
 
 int main(int argc, char** argv){
 	pid_t pid;
-    FILE * octaveFd = NULL;
-    int sizeOfData; 
-    int16_t * datosBrutos = NULL;
-    int16_t * datosSaturados = NULL;  
-    int16_t * datosSuavizados = NULL;
+	FILE * octaveFd = NULL;
+	int sizeOfData; 
+	int16_t * datosBrutos = NULL;
+	int16_t * datosSaturados = NULL;  
+	int16_t * datosSuavizados = NULL;
 
 	comprobacionDatosEntrada(argc, argv);
 	creacionOctave( &pid, &octaveFd );
-
-	
 	obtencionDatos( argv[1], argv[2], &datosBrutos, &datosSaturados ,&sizeOfData); // No fue ingresado p por lo tanto no se obtendran todos los datos lo que disminuye el procesamiento
 	//suavizamientoDeSaturacion( &datosSuavizados, sizeOfData );
 	generacionGraficos(&octaveFd, &datosBrutos, &datosSaturados, argv[3]);
-	printf("argv4 %c  argc %d \n", *argv[4], argc ); fflush(stdout);
 	if(argc == 5 && (char)*argv[4] == 'p')
 		reproducir( datosBrutos, datosSaturados, datosSuavizados, sizeOfData );
 
 	protocoloDeSalida(&octaveFd, pid, &datosBrutos, &datosSaturados);
-
-	
-		
-
 	return 0;
 }
 
