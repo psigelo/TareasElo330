@@ -1,0 +1,12 @@
+Compilacion:
+
+	make
+
+Ejecucion:
+
+ 	./csa <ruta archivo de audio> <ganancia> <offset> [p]
+
+ Detalles:
+ 	Ganancia es un numero Real
+ 	offset debe ser en milisegundos.
+ 	
