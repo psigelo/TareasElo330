@@ -9,4 +9,4 @@ Ejecucion:
  Detalles:
  	Ganancia es un numero Real
  	offset debe ser en milisegundos.
- 	
+ 	Se debe ingresar exactamende el caracter 'p' si se desea escuchar el audio.
