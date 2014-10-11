@@ -5,40 +5,49 @@
 
 int main(int argc, char** argv){
 	pid_t pid;
-	FILE * octaveFd = NULL;
+	FILE * octaveFdWrite = NULL;
+	FILE * octaveFdRead = NULL;
 	int sizeOfData; 
 	int16_t * datosBrutos = NULL;
 	int16_t * datosSaturados = NULL;  
 	int16_t * datosSuavizados = NULL;
-	double * sim_time = NULL;
 
 	comprobacionDatosEntrada(argc, argv);
-	creacionOctave( &pid, &octaveFd );
-	obtencionDatos( argv[1], argv[2], &datosBrutos, &datosSaturados, &sim_time ,&sizeOfData); // No fue ingresado p por lo tanto no se obtendran todos los datos lo que disminuye el procesamiento
-	suavizamientoDeSaturacion(&octaveFd, &datosSuavizados, &datosSaturados, &sim_time, atof(argv[2]), sizeOfData );
-	generacionGraficos(&octaveFd, &datosBrutos, &datosSaturados, &datosSuavizados, argv[3]);
+	creacionOctave( &pid, &octaveFdWrite, &octaveFdRead );
+
+	obtencionDatos( argv[1], argv[2], &datosBrutos, &datosSaturados ,&sizeOfData); // No fue ingresado p por lo tanto no se obtendran todos los datos lo que disminuye el procesamiento
+	suavizamientoDeSaturacion( &datosSaturados, &datosSuavizados, sizeOfData, argv[2]);
+	generacionGraficos(&octaveFdWrite, &datosBrutos, &datosSaturados, &datosSuavizados, argv[3]);
+	calculoDeError(&datosBrutos, &datosSuavizados,sizeOfData);
 	if(argc == 5 && (char)*argv[4] == 'p')
 		reproducir( datosBrutos, datosSaturados, datosSuavizados, sizeOfData );
 
-	protocoloDeSalida(&octaveFd, pid, &datosBrutos, &datosSaturados);
+
+
+	protocoloDeSalida(&octaveFdWrite, pid, &datosBrutos, &datosSaturados);
 	return 0;
 }
 
 
 void comprobacionDatosEntrada(int argc, char** argv){
-	if(argc != 5 ){
+	if(argc < 4 ){
 		printf("El correcto uso del programa tiene el siguiente prototipo:\n -> %s <ruta archivo de audio> <ganancia> <offset> [p]\n", argv[0]);
 		exit(1);
 	}
 }
 
 
-void creacionOctave( int * pid, FILE ** octaveFd ){
+void creacionOctave( int * pid, FILE ** octaveFdWrite, FILE ** octaveFdRead ){
     int pfd[2];
+    int pfd_2[2];
 	/*
      * Create a pipe.
      */
     if (pipe(pfd) < 0) {
+        perror("pipe");
+        exit(1);
+    }
+    if (pipe(pfd_2) < 0) {
         perror("pipe");
         exit(1);
     }
@@ -55,24 +64,27 @@ void creacionOctave( int * pid, FILE ** octaveFd ){
     if (*pid == 0) {
       int junk;
         /*
-         * Attach standard input of this child process to read from the pipe.
-         */
+	     * Attach standard input of this child process to read from the pipe.
+	     */
         dup2(pfd[0], 0);
+        dup2(pfd_2[1], 1);
         close(pfd[1]);  /* close the write end of the pipe */
+        close(pfd_2[0]); 
         junk = open("/dev/null", O_WRONLY);
-        dup2(junk, 1);  /* throw away any message sent to screen*/
+        dup2(pfd_2[1],1);
         dup2(junk, 2);  /* throw away any error message */
-        execlp("octave", "octave", "-i", (char *)0);
+        execlp("octave", "octave", "-iq", (char *)0);
         perror("exec");
         exit(-1);
     }
     close(pfd[0]);
-    *octaveFd = fdopen(pfd[1], "w");  /* to use fprintf instead of just write */
-    
+    close(pfd_2[1]);
+    *octaveFdWrite = fdopen(pfd[1], "w");  /* to use fprintf instead of just write */
+    *octaveFdRead  = fdopen(pfd_2[0], "r");
 }
 
 
-void obtencionDatos( char * rutaAudio , char * _ganancia, int16_t ** datosBrutos , int16_t ** datosSaturados, double ** sim_time ,int * sizeOfData){
+void obtencionDatos( char * rutaAudio , char * _ganancia, int16_t ** datosBrutos , int16_t ** datosSaturados ,int * sizeOfData){
 	FILE * archivoAudioRaw = fopen(rutaAudio, "rb");
 	*sizeOfData = 0;
 	int16_t valor;
@@ -86,164 +98,164 @@ void obtencionDatos( char * rutaAudio , char * _ganancia, int16_t ** datosBrutos
 
 	archivoAudioRaw = fopen(rutaAudio, "rb");
 	*datosBrutos = (int16_t *) malloc(*sizeOfData * sizeof(int16_t) );
-	*datosSaturados = (int16_t *) malloc(*sizeOfData * sizeof(int16_t) );	
-	*sim_time = (double *) malloc(*sizeOfData * sizeof(double) );
+	*datosSaturados = (int16_t *) malloc(*sizeOfData * sizeof(int16_t) );
 	i=0;
 	while(	fread(&valor,sizeof(valor),1,archivoAudioRaw) != 0   ){
 		(*datosBrutos)[i] = valor;
-		(*datosSaturados)[i] = (abs(ganancia*valor) < 0x7fff) ? valor : valor/abs(valor)*(0x7fff/ganancia);
-		(*sim_time)[i] = i/8000.0;
+		(*datosSaturados)[i] = ((abs(ganancia*valor) < 0x7fff) ? valor : valor/abs(valor)*(0x7fff/ganancia))  ;
 		i++;
 	}
 
 }
 
 
-void protocoloDeSalida(FILE ** octaveFd, int pid, int16_t ** datosBrutos, int16_t ** datosSaturados){
+void protocoloDeSalida(FILE ** octaveFdWrite, int pid, int16_t ** datosBrutos, int16_t ** datosSaturados){
 	printf("Ingrese cualquier tecla para terminar\n"); fflush(stdout);
 	getchar();
-    fprintf(*octaveFd, "\n exit\n"); 
-	fflush(*octaveFd);
+    fprintf(*octaveFdWrite, "\n exit\n"); 
+	fflush(*octaveFdWrite);
 	waitpid(pid, NULL, 0);
-    fclose(*octaveFd);
+    fclose(*octaveFdWrite);
     free(*datosBrutos);
     free(*datosSaturados);
     printf("\n");fflush(stdout);
 }
 
-void generacionGraficos(FILE ** octaveFd, int16_t ** datosBrutos, int16_t ** datosSaturados, int16_t **datosSuavizados, char * _offset ){ 
+void generacionGraficos(FILE ** octaveFdWrite, int16_t ** datosBrutos, int16_t ** datosSaturados, int16_t ** datosSuavizados,  char * _offset ){ 
 
 	int i;
 
-	// FALTA EL GRAFICO CON SUAVIZAMIENTO
-
 	int offset = atoi(_offset);
 	//========================================
-	fprintf(*octaveFd, "datosBrutos = [ ");
+	fprintf(*octaveFdWrite, "datosBrutos = [ ");
 	//int i = 0;
 	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC*SAMPLES_PER_MILLISEC; ++i)
 	{
-		fprintf(*octaveFd, "%" PRId16 " ", (*datosBrutos)[i]); // Eso de "%" PRId16 " " es por que el int16_t es un formato especial.
+		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosBrutos)[i]); // Eso de "%" PRId16 " " es por que el int16_t es un formato especial.
 															// "%" PRId16 es el formato para imprimir int16_t luego se debe volver a abrir " " para escribir el espacio que hay que darle a octave.
 	}
-	fprintf(*octaveFd, " ]\n" ); 
-	fflush(*octaveFd);
+	fprintf(*octaveFdWrite, " ];\n" ); 
+	fflush(*octaveFdWrite);
 	
 	//============================================
-	fprintf(*octaveFd, "datosSaturados = [ ");
+	fprintf(*octaveFdWrite, "datosSaturados = [ ");
 	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
 	{
-		fprintf(*octaveFd, "%" PRId16 " ", (*datosSaturados)[i]);
+		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosSaturados)[i]);
 	}
-	fprintf(*octaveFd, " ]\n" ); 
-	fflush(*octaveFd);
+	fprintf(*octaveFdWrite, " ];\n" ); 
+	fflush(*octaveFdWrite);
 	//============================================
-	fprintf(*octaveFd, "datosSuavizados = [ ");
+	fprintf(*octaveFdWrite, "datosSuavizados = [ ");
 	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
 	{
-		fprintf(*octaveFd, "%" PRId16 " ", (*datosSuavizados)[i]);
+		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosSuavizados)[i]);
 	}
-	fprintf(*octaveFd, " ]\n" ); 
-	fflush(*octaveFd);
+	fprintf(*octaveFdWrite, " ];\n" ); 
+	fflush(*octaveFdWrite);
 	//===========================================
-	fprintf(*octaveFd, "tiempo = [ ");
+	fprintf(*octaveFdWrite, "tiempo = [ ");
 	for (i = offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
 	{
-		fprintf(*octaveFd, "%f ", i/8000.0);
+		fprintf(*octaveFdWrite, "%f ", i/8000.0);
 	}
-	fprintf(*octaveFd, " ]\n" ); fflush(*octaveFd);
+	fprintf(*octaveFdWrite, " ];\n" ); fflush(*octaveFdWrite);
 	//===========================================
 
-	fprintf(*octaveFd, "subplot(3,1,1);\n");fflush(*octaveFd);
-    fprintf(*octaveFd, "plot(tiempo,datosBrutos);\n");fflush(*octaveFd);
-    fprintf(*octaveFd, "subplot(3,1,2);\n");fflush(*octaveFd);
-	fprintf(*octaveFd, "plot(tiempo,datosSaturados)\n");fflush(*octaveFd);
-	fprintf(*octaveFd, "subplot(3,1,3);\n");fflush(*octaveFd);
-	fprintf(*octaveFd, "plot(tiempo,datosSuavizados)\n");fflush(*octaveFd);
-
+	fprintf(*octaveFdWrite, "subplot(3,1,1);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "plot(tiempo,datosBrutos);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "subplot(3,1,2);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "plot(tiempo,datosSaturados);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "subplot(3,1,3);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "plot(tiempo,datosSuavizados);\n");fflush(*octaveFdWrite);
 }
 
 
-void suavizamientoDeSaturacion(FILE ** octaveFd, int16_t ** datosSuavizados , int16_t ** datosSaturados, double ** sim_time, float ganancia ,int sizeOfData){
-	// Deberia consistir en dos metodos
-	// obtenerPosicionesDeSaturaciones( ... )
-	// obtenerDatosSuavizados( ..., int16_t ** datosSuavizados, ... )
-	int i, var, cont = 0;
+void suavizamientoDeSaturacion( int16_t ** datosSaturados,  int16_t ** datosSuavizados, int sizeOfData, char * _ganancia ){
 	*datosSuavizados = (int16_t *) malloc(sizeOfData * sizeof(int16_t) );
+	int i;
+	//double ganancia = atof(_ganancia);
+	double ganancia = atof(_ganancia);
+	int16_t saturado_superior = (ganancia > 1 ) ? 0x7fff/ganancia : 0x7fff;
+	int16_t saturado_inferior = (ganancia > 1 ) ? -0x7fff/ganancia : -0x7fff;
 
-	(*datosSuavizados)[0] = 0;
-	printf("%f\n", ganancia);
-	printf("%hd\n", (int16_t)(0x7fff/ganancia));
 
-	for(i = 1; i < sizeOfData; i++)
+
+
+	for (i = 0; i < sizeOfData; ++i)
 	{
-		if(abs((*datosSaturados)[i]) == (int16_t)(0x7fff/ganancia))
-		{
-			if(var == 0)
-			{
-				(*datosSuavizados)[i] = (*datosSaturados)[i];
-				var = i;	
-			} 
-			cont++;
+		if(  ((*datosSaturados)[i] != saturado_superior) && ((*datosSaturados)[i] != saturado_inferior) ){
+			(*datosSuavizados)[i] = (int16_t)((*datosSaturados)[i]);
 		}
-		else if(abs((*datosSaturados)[i-1]) == (int16_t)(0x7fff/ganancia))
-		{
-			(*datosSuavizados)[i] = (*datosSaturados)[i];
-
-			fprintf(*octaveFd, "y = [ ");				
-			fprintf(*octaveFd, "%" PRId16 " ", (*datosSaturados)[var-1]);
-			fprintf(*octaveFd, "%" PRId16 " ", (*datosSaturados)[var]);
-			fprintf(*octaveFd, "%" PRId16 " ", (*datosSaturados)[var+cont-1]);
-			fprintf(*octaveFd, "%" PRId16 " ", (*datosSaturados)[var+cont]);			
-			fprintf(*octaveFd, " ];\n"); 
-			fflush(*octaveFd);
-
-			fprintf(*octaveFd, "x = [ ");				
-			fprintf(*octaveFd, "%f" , (*sim_time)[var-1]);
-			fprintf(*octaveFd, "%f" , (*sim_time)[var]);
-			fprintf(*octaveFd, "%f" , (*sim_time)[var+cont-1]);
-			fprintf(*octaveFd, "%f" , (*sim_time)[var+cont]);			
-			fprintf(*octaveFd, " ];\n"); 
-			fflush(*octaveFd);
-
-			fprintf(*octaveFd, "p = polyfit(x,y,3);\n");
-			fflush(*octaveFd);
-
-			int j;
-			for(j = 1; j < cont-1; j++)
+		else{
+			int j=0; // Representa la cantidad de datos saturados en el bloque - 1
+			while( i+j < sizeOfData ) // En realidad no es ese el limite
 			{
-				fprintf(*octaveFd, "polyval(p,%f)\n", (*sim_time)[var+j]);
-				fflush(*octaveFd);
-
-				int valor_suavizado = 0;
-				//AQUI LEER A OCTAVE y guardar en valor suavizado
-
-				(*datosSuavizados)[var+j] = 0;
+				if ( (*datosSuavizados)[i+j] == saturado_superior || (*datosSuavizados)[i+j] == saturado_inferior ){
+					j++;
+				}
+				else{
+					break;
+				}
 			}
-			var = 0;
-			cont = 0;
-		}else
-		{
-			(*datosSuavizados)[i] = (*datosSaturados)[i];
+			if(i+j == sizeOfData){
+				// Si el bloque de saturados posee al ultimo valor tambien entonces no se puede hacer nada
+				int k = i;
+				for ( ; k <= i+j; ++k)
+				{
+					(*datosSuavizados)[k] = (int16_t)((*datosSaturados)[i]);
+				}
+			}
+			else{
+				int16_t valoresAnterioresDeMuestra[3];
+				int16_t valoresPosterioresDeMuestra[2];
+				valoresAnterioresDeMuestra[0] = (*datosSuavizados)[i-3];
+				valoresAnterioresDeMuestra[1] = (*datosSuavizados)[i-2];
+				valoresAnterioresDeMuestra[2] = (*datosSuavizados)[i-1];
+				valoresPosterioresDeMuestra[0] = (*datosSaturados)[i+j+1];
+				valoresPosterioresDeMuestra[1] = (*datosSaturados)[i+j+2];
+
+				// Se realizara una aproximacion polinomial de lagrange como se aprende en analisis numerico
+
+				int k = i;
+				for ( ; k <= i+j; ++k)
+				{
+					(*datosSuavizados)[k] = valoresAnterioresDeMuestra[0]*( k - (i-2) )*( k - (i-1) )*( k - (i + j + 1))*( k - (i + j + 2))/(( (i-3) - (i-2) )*( (i-3) - (i-1) )*( (i-3) - (i + j + 1))*( (i-3) - (i + j + 2))) + 
+											valoresAnterioresDeMuestra[1]*( k - (i-3) )*( k - (i-1) )*( k - (i + j + 1))*( k - (i + j + 2))/(( (i-2) - (i-3) )*( (i-2) - (i-1) )*( (i-2) - (i + j + 1))*( (i-2) - (i + j + 2))) +
+											valoresAnterioresDeMuestra[2]*( k - (i-3) )*( k - (i-2) )*( k - (i + j + 1))*( k - (i + j + 2))/(( (i-1) - (i-3) )*( (i-1) - (i-2) )*( (i-1) - (i + j + 1))*( (i-1) - (i + j + 2))) +
+											valoresPosterioresDeMuestra[0]*( k - (i-3) )*( k - (i-2) )*( k - (i-1) )*( k - (i + j + 2))/(( (i+j+1) - (i-3) )*( (i+j+1) - (i-2) )*( (i+j+1) - (i-1) )*( (i+j+1) - (i + j + 2))) +
+											valoresPosterioresDeMuestra[1]*( k - (i-3) )*( k - (i-2) )*( k - (i-1) )*( k - (i + j + 1))/(( (i+j+2) - (i-3) )*( (i+j+2) - (i-2) )*( (i+j+2) - (i-1) )*( (i+j+2) - (i + j + 1))) ;
+				}
+			}
+			i = i + j;
 		}
 	}
-	printf("endfor\n");
+
 
 }
 
-
-
 void reproducir(int16_t * datosBrutos, int16_t * datosSaturados, int16_t * datosSuavizados, int sizeOfData){
-	// Falta con el audio filtrado
-	FILE * audioNormal = fopen("./Audio/audioNormal.raw", "wb");
-	FILE * audioSaturado = fopen("./Audio/audioSaturado.raw", "wb");
+	FILE * audioNormal = fopen("./audioNormal.raw", "wb");
+	FILE * audioSaturado = fopen("./audioSaturado.raw", "wb");
+	FILE * audioSuavizado = fopen("./audioSuavizado.raw", "wb");
 	int i;
 	for (i = 0; i < sizeOfData; ++i)
 	{
 		fwrite(&(datosBrutos[i]), sizeof(int16_t), 1, audioNormal);
 		fwrite(&(datosSaturados[i]), sizeof(int16_t), 1, audioSaturado);
+		fwrite(&(datosSuavizados[i]), sizeof(int16_t), 1, audioSuavizado);
 	}
+	system("aplay --format=S16_LE -t raw audioNormal.raw");
+	system("aplay --format=S16_LE -t raw audioSaturado.raw");
+	system("aplay --format=S16_LE -t raw audioSuavizado.raw");
+}
 
-	system("aplay --format=S16_LE -t raw Audio/audioNormal.raw");
-	system("aplay --format=S16_LE -t raw Audio/audioSaturado.raw");
+void calculoDeError(int16_t ** datosBrutos, int16_t ** datosSuavizados,int sizeOfData){
+	long int errorSum=0;
+	int i;
+	for (i = 0; i < sizeOfData; ++i)
+	{
+		errorSum += abs( (*datosBrutos)[i] - (*datosSuavizados)[i])* ( (*datosBrutos)[i] - (*datosSuavizados)[i]);
+	}
+	printf("La suma de error es: %ld\n", errorSum);
 }
