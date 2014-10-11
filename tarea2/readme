@@ -2,6 +2,22 @@ Descripcion de archivos contenidos:
 
 	src/csa.c : Archivo principal, Corrector de saturación de audio, el programa realiza un suavizamiento de las saturaciones a través de un polinomio de orden 4.
 
+Requisitos:
+
+Al momento sólo existe versión para linux.
+
+Ubuntu
+
+$ sudo apt-get install aplay
+$ sudo apt-get install octave
+$ sudo apt-get install gnuplot
+
+Fedora
+
+$ sudo yum yum install aplay
+$ sudo yum install octave
+$ sudo yum install gnuplot
+
 
 Compilacion:
 	make
