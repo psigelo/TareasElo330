@@ -3,6 +3,9 @@
 #define SAMPLES_PER_MILLISEC (8)
 #define TOTAL_GRAPH_TIME_MILLISEC (40)
 
+/*
+ El Objetivo es crear un corrector de saturación de audio a través de polinomios de orden 4.
+*/
 int main(int argc, char** argv){
 	pid_t pid;
 	FILE * octaveFdWrite = NULL;
@@ -10,24 +13,31 @@ int main(int argc, char** argv){
 	int16_t * datosBrutos = NULL;
 	int16_t * datosSaturados = NULL;  
 	int16_t * datosSuavizados = NULL;
-
+	/*
+		Comprobacion de los datos de entrada: Se analiza si la entrada con que el usuario ejecutó el programa es válida.
+		CreacionOctave: Se crea el proceso que representa a octave para su uso posterior en la graficación de las señales.
+		ObtencionDatos: Se obtienen los datos del archivo de audio para su posterior tratamiento
+		suavizamiento de Saturacion: Se suaviza la saturación de la señal y se guarda en un arreglo diferente.
+		generacionGraficos: Se crean los gráficos a través de octave.
+		calculoDeError: Se calcula el error entre la señal entrante y la suavizada.
+		reproducir: Si el usuario entró el parámetro p entonces se reproducen los audios.
+		protocolo de Salida: Se libera la memoria utilizada y se espera a que el usuario aprete enter.
+	*/
 	comprobacionDatosEntrada(argc, argv);
 	creacionOctave( &pid, &octaveFdWrite);
-
 	obtencionDatos( argv[1], argv[2], &datosBrutos, &datosSaturados ,&sizeOfData); // No fue ingresado p por lo tanto no se obtendran todos los datos lo que disminuye el procesamiento
 	suavizamientoDeSaturacion( &datosSaturados, &datosSuavizados, sizeOfData, argv[2]);
 	generacionGraficos(&octaveFdWrite, &datosBrutos, &datosSaturados, &datosSuavizados, argv[3]);
 	calculoDeError(&datosBrutos, &datosSuavizados,sizeOfData);
 	if(argc == 5 && (char)*argv[4] == 'p')
 		reproducir( datosBrutos, datosSaturados, datosSuavizados, sizeOfData );
-
-
-
 	protocoloDeSalida(&octaveFdWrite, pid, &datosBrutos, &datosSaturados);
 	return 0;
 }
 
-
+/*
+Comprobacion de los datos de entrada: Se analiza si la entrada con que el usuario ejecutó el programa es válida.
+*/
 void comprobacionDatosEntrada(int argc, char** argv){
 	if(argc < 4 ){
 		printf("El correcto uso del programa tiene el siguiente prototipo:\n -> %s <ruta archivo de audio> <ganancia> <offset> [p]\n", argv[0]);
@@ -35,7 +45,9 @@ void comprobacionDatosEntrada(int argc, char** argv){
 	}
 }
 
-
+/*
+CreacionOctave: Se crea el proceso que representa a octave para su uso posterior en la graficación de las señales.
+*/
 void creacionOctave( int * pid, FILE ** octaveFdWrite ){
     int pfd[2];
 	/*
@@ -74,6 +86,9 @@ void creacionOctave( int * pid, FILE ** octaveFdWrite ){
 }
 
 
+/*
+ObtencionDatos: Se obtienen los datos del archivo de audio para su posterior tratamiento
+*/
 void obtencionDatos( char * rutaAudio , char * _ganancia, int16_t ** datosBrutos , int16_t ** datosSaturados ,int * sizeOfData){
 	FILE * archivoAudioRaw = fopen(rutaAudio, "rb");
 	*sizeOfData = 0;
@@ -81,7 +96,7 @@ void obtencionDatos( char * rutaAudio , char * _ganancia, int16_t ** datosBrutos
 	double ganancia = atof(_ganancia);
 	
 	int i=0;
-	while(	fread(&valor,sizeof(valor),1,archivoAudioRaw) != 0   ){
+	while(	fread(&valor,sizeof(valor),1,archivoAudioRaw) != 0   ){ // Primero se obtiene el largo de los datos
 		i++;
 	}
 	*sizeOfData = i;
@@ -90,7 +105,7 @@ void obtencionDatos( char * rutaAudio , char * _ganancia, int16_t ** datosBrutos
 	*datosBrutos = (int16_t *) malloc(*sizeOfData * sizeof(int16_t) );
 	*datosSaturados = (int16_t *) malloc(*sizeOfData * sizeof(int16_t) );
 	i=0;
-	while(	fread(&valor,sizeof(valor),1,archivoAudioRaw) != 0   ){
+	while(	fread(&valor,sizeof(valor),1,archivoAudioRaw) != 0   ){ // Se obtiene dato a dato y se calcula su version saturada
 		(*datosBrutos)[i] = valor;
 		(*datosSaturados)[i] = ((abs(ganancia*valor) < 0x7fff) ? valor : valor/abs(valor)*(0x7fff/ganancia))  ;
 		i++;
@@ -99,68 +114,9 @@ void obtencionDatos( char * rutaAudio , char * _ganancia, int16_t ** datosBrutos
 }
 
 
-void protocoloDeSalida(FILE ** octaveFdWrite, int pid, int16_t ** datosBrutos, int16_t ** datosSaturados){
-	printf("Ingrese cualquier tecla para terminar\n"); fflush(stdout);
-	getchar();
-    fprintf(*octaveFdWrite, "\n exit\n"); 
-	fflush(*octaveFdWrite);
-	waitpid(pid, NULL, 0);
-    fclose(*octaveFdWrite);
-    free(*datosBrutos);
-    free(*datosSaturados);
-    printf("\n");fflush(stdout);
-}
-
-void generacionGraficos(FILE ** octaveFdWrite, int16_t ** datosBrutos, int16_t ** datosSaturados, int16_t ** datosSuavizados,  char * _offset ){ 
-
-	int i;
-
-	int offset = atoi(_offset);
-	//========================================
-	fprintf(*octaveFdWrite, "datosBrutos = [ ");
-	//int i = 0;
-	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC*SAMPLES_PER_MILLISEC; ++i)
-	{
-		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosBrutos)[i]); // Eso de "%" PRId16 " " es por que el int16_t es un formato especial.
-															// "%" PRId16 es el formato para imprimir int16_t luego se debe volver a abrir " " para escribir el espacio que hay que darle a octave.
-	}
-	fprintf(*octaveFdWrite, " ];\n" ); 
-	fflush(*octaveFdWrite);
-	
-	//============================================
-	fprintf(*octaveFdWrite, "datosSaturados = [ ");
-	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
-	{
-		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosSaturados)[i]);
-	}
-	fprintf(*octaveFdWrite, " ];\n" ); 
-	fflush(*octaveFdWrite);
-	//============================================
-	fprintf(*octaveFdWrite, "datosSuavizados = [ ");
-	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
-	{
-		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosSuavizados)[i]);
-	}
-	fprintf(*octaveFdWrite, " ];\n" ); 
-	fflush(*octaveFdWrite);
-	//===========================================
-	fprintf(*octaveFdWrite, "tiempo = [ ");
-	for (i = offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
-	{
-		fprintf(*octaveFdWrite, "%f ", i/8000.0);
-	}
-	fprintf(*octaveFdWrite, " ];\n" ); fflush(*octaveFdWrite);
-	//===========================================
-
-	fprintf(*octaveFdWrite, "subplot(3,1,1);\n");fflush(*octaveFdWrite);
-	fprintf(*octaveFdWrite, "plot(tiempo,datosBrutos);\n");fflush(*octaveFdWrite);
-	fprintf(*octaveFdWrite, "subplot(3,1,2);\n");fflush(*octaveFdWrite);
-	fprintf(*octaveFdWrite, "plot(tiempo,datosSaturados);\n");fflush(*octaveFdWrite);
-	fprintf(*octaveFdWrite, "subplot(3,1,3);\n");fflush(*octaveFdWrite);
-	fprintf(*octaveFdWrite, "plot(tiempo,datosSuavizados);\n");fflush(*octaveFdWrite);
-}
-
-
+/*
+ suavizamiento de Saturacion: Se suaviza la saturación de la señal y se guarda en un arreglo diferente.
+*/
 void suavizamientoDeSaturacion( int16_t ** datosSaturados,  int16_t ** datosSuavizados, int sizeOfData, char * _ganancia ){
 	*datosSuavizados = (int16_t *) malloc(sizeOfData * sizeof(int16_t) );
 	int i;
@@ -220,10 +176,75 @@ void suavizamientoDeSaturacion( int16_t ** datosSaturados,  int16_t ** datosSuav
 			i = i + j;
 		}
 	}
+}
+/*
+	generacionGraficos: Se crean los gráficos a través de octave.
+*/
+void generacionGraficos(FILE ** octaveFdWrite, int16_t ** datosBrutos, int16_t ** datosSaturados, int16_t ** datosSuavizados,  char * _offset ){ 
 
+	int i;
 
+	int offset = atoi(_offset);
+	//========================================
+	fprintf(*octaveFdWrite, "datosBrutos = [ ");
+	//int i = 0;
+	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC*SAMPLES_PER_MILLISEC; ++i)
+	{
+		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosBrutos)[i]); // Eso de "%" PRId16 " " es por que el int16_t es un formato especial.
+															// "%" PRId16 es el formato para imprimir int16_t luego se debe volver a abrir " " para escribir el espacio que hay que darle a octave.
+	}
+	fprintf(*octaveFdWrite, " ];\n" ); 
+	fflush(*octaveFdWrite);
+	
+	//============================================
+	fprintf(*octaveFdWrite, "datosSaturados = [ ");
+	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
+	{
+		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosSaturados)[i]);
+	}
+	fprintf(*octaveFdWrite, " ];\n" ); 
+	fflush(*octaveFdWrite);
+	//============================================
+	fprintf(*octaveFdWrite, "datosSuavizados = [ ");
+	for (i= offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
+	{
+		fprintf(*octaveFdWrite, "%" PRId16 " ", (*datosSuavizados)[i]);
+	}
+	fprintf(*octaveFdWrite, " ];\n" ); 
+	fflush(*octaveFdWrite);
+	//===========================================
+	fprintf(*octaveFdWrite, "tiempo = [ ");
+	for (i = offset * SAMPLES_PER_MILLISEC; i < offset * SAMPLES_PER_MILLISEC + TOTAL_GRAPH_TIME_MILLISEC * SAMPLES_PER_MILLISEC; ++i)
+	{
+		fprintf(*octaveFdWrite, "%f ", i/8000.0);
+	}
+	fprintf(*octaveFdWrite, " ];\n" ); fflush(*octaveFdWrite);
+	//===========================================
+
+	fprintf(*octaveFdWrite, "subplot(3,1,1);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "plot(tiempo,datosBrutos);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "subplot(3,1,2);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "plot(tiempo,datosSaturados);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "subplot(3,1,3);\n");fflush(*octaveFdWrite);
+	fprintf(*octaveFdWrite, "plot(tiempo,datosSuavizados);\n");fflush(*octaveFdWrite);
 }
 
+/*
+calculoDeError: Se calcula el error entre la señal entrante y la suavizada.
+*/
+void calculoDeError(int16_t ** datosBrutos, int16_t ** datosSuavizados,int sizeOfData){
+	long int errorSum=0;
+	int i;
+	for (i = 0; i < sizeOfData; ++i)
+	{
+		errorSum += abs( (*datosBrutos)[i] - (*datosSuavizados)[i])* ( (*datosBrutos)[i] - (*datosSuavizados)[i]);
+	}
+	printf("La suma de error es: %ld\n", errorSum);
+}
+
+/*
+reproducir: Si el usuario entró el parámetro p entonces se reproducen los audios.
+*/
 void reproducir(int16_t * datosBrutos, int16_t * datosSaturados, int16_t * datosSuavizados, int sizeOfData){
 	FILE * audioNormal = fopen("./audioNormal.raw", "wb");
 	FILE * audioSaturado = fopen("./audioSaturado.raw", "wb");
@@ -240,12 +261,18 @@ void reproducir(int16_t * datosBrutos, int16_t * datosSaturados, int16_t * datos
 	system("aplay --format=S16_LE -t raw audioSuavizado.raw");
 }
 
-void calculoDeError(int16_t ** datosBrutos, int16_t ** datosSuavizados,int sizeOfData){
-	long int errorSum=0;
-	int i;
-	for (i = 0; i < sizeOfData; ++i)
-	{
-		errorSum += abs( (*datosBrutos)[i] - (*datosSuavizados)[i])* ( (*datosBrutos)[i] - (*datosSuavizados)[i]);
-	}
-	printf("La suma de error es: %ld\n", errorSum);
+
+/*
+protocolo de Salida: Se libera la memoria utilizada y se espera a que el usuario aprete enter.
+*/
+void protocoloDeSalida(FILE ** octaveFdWrite, int pid, int16_t ** datosBrutos, int16_t ** datosSaturados){
+	printf("Ingrese cualquier tecla para terminar\n"); fflush(stdout);
+	getchar();
+    fprintf(*octaveFdWrite, "\n exit\n"); 
+	fflush(*octaveFdWrite);
+	waitpid(pid, NULL, 0);
+    fclose(*octaveFdWrite);
+    free(*datosBrutos);
+    free(*datosSaturados);
+    printf("\n");fflush(stdout);
 }

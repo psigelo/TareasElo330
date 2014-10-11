@@ -1,11 +1,19 @@
+Descripcion de archivos contenidos:
+
+	src/csa.c : Archivo principal, Corrector de saturación de audio, el programa realiza un suavizamiento de las saturaciones a través de un polinomio de orden 4.
+
+
 Compilacion:
 	make
 
 Ejecucion:
-
  	./bin/csa <ruta archivo de audio> <ganancia> <offset> [p]
 
- Detalles:
+Ejemplo:
+	./bin/csa Audio/SaludoAudacity.raw 3 200 p
+
+Detalles:
  	Ganancia es un numero Real
  	offset debe ser en milisegundos.
  	Se debe ingresar exactamende el caracter 'p' si se desea escuchar el audio.
+
