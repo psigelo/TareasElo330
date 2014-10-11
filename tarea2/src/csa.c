@@ -6,14 +6,13 @@
 int main(int argc, char** argv){
 	pid_t pid;
 	FILE * octaveFdWrite = NULL;
-	FILE * octaveFdRead = NULL;
 	int sizeOfData; 
 	int16_t * datosBrutos = NULL;
 	int16_t * datosSaturados = NULL;  
 	int16_t * datosSuavizados = NULL;
 
 	comprobacionDatosEntrada(argc, argv);
-	creacionOctave( &pid, &octaveFdWrite, &octaveFdRead );
+	creacionOctave( &pid, &octaveFdWrite);
 
 	obtencionDatos( argv[1], argv[2], &datosBrutos, &datosSaturados ,&sizeOfData); // No fue ingresado p por lo tanto no se obtendran todos los datos lo que disminuye el procesamiento
 	suavizamientoDeSaturacion( &datosSaturados, &datosSuavizados, sizeOfData, argv[2]);
@@ -37,17 +36,12 @@ void comprobacionDatosEntrada(int argc, char** argv){
 }
 
 
-void creacionOctave( int * pid, FILE ** octaveFdWrite, FILE ** octaveFdRead ){
+void creacionOctave( int * pid, FILE ** octaveFdWrite ){
     int pfd[2];
-    int pfd_2[2];
 	/*
      * Create a pipe.
      */
     if (pipe(pfd) < 0) {
-        perror("pipe");
-        exit(1);
-    }
-    if (pipe(pfd_2) < 0) {
         perror("pipe");
         exit(1);
     }
@@ -67,20 +61,16 @@ void creacionOctave( int * pid, FILE ** octaveFdWrite, FILE ** octaveFdRead ){
 	     * Attach standard input of this child process to read from the pipe.
 	     */
         dup2(pfd[0], 0);
-        dup2(pfd_2[1], 1);
         close(pfd[1]);  /* close the write end of the pipe */
-        close(pfd_2[0]); 
         junk = open("/dev/null", O_WRONLY);
-        dup2(pfd_2[1],1);
+        dup2(junk,1);
         dup2(junk, 2);  /* throw away any error message */
         execlp("octave", "octave", "-iq", (char *)0);
         perror("exec");
         exit(-1);
     }
     close(pfd[0]);
-    close(pfd_2[1]);
     *octaveFdWrite = fdopen(pfd[1], "w");  /* to use fprintf instead of just write */
-    *octaveFdRead  = fdopen(pfd_2[0], "r");
 }
 
 
