@@ -14,7 +14,7 @@ $ sudo apt-get install gnuplot
 
 Fedora
 
-$ sudo yum yum install aplay
+$ sudo yum install aplay
 $ sudo yum install octave
 $ sudo yum install gnuplot
 
