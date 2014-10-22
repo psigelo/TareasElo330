@@ -23,12 +23,12 @@ int main(int argc, char** argv){
 		reproducir: Si el usuario entró el parámetro p entonces se reproducen los audios.
 		protocolo de Salida: Se libera la memoria utilizada y se espera a que el usuario aprete enter.
 	*/
-	comprobacionDatosEntrada(argc, argv);
-	creacionOctave( &pid, &octaveFdWrite);
-	obtencionDatos( argv[1], argv[2], &datosBrutos, &datosSaturados ,&sizeOfData); // No fue ingresado p por lo tanto no se obtendran todos los datos lo que disminuye el procesamiento
-	suavizamientoDeSaturacion( &datosSaturados, &datosSuavizados, sizeOfData, argv[2]);
-	generacionGraficos(&octaveFdWrite, &datosBrutos, &datosSaturados, &datosSuavizados, argv[3]);
-	calculoDeError(&datosBrutos, &datosSuavizados,sizeOfData);
+	comprobacionDatosEntrada (argc, argv);
+	creacionOctave ( &pid, &octaveFdWrite);
+	obtencionDatos ( argv[1], argv[2], &datosBrutos, &datosSaturados ,&sizeOfData); // No fue ingresado p por lo tanto no se obtendran todos los datos lo que disminuye el procesamiento
+	suavizamientoDeSaturacion ( &datosSaturados, &datosSuavizados, sizeOfData, argv[2]);
+	generacionGraficos (&octaveFdWrite, &datosBrutos, &datosSaturados, &datosSuavizados, argv[3]);
+	calculoDeError (&datosBrutos, &datosSuavizados,sizeOfData);
 	if(argc == 5 && (char)*argv[4] == 'p')
 		reproducir( datosBrutos, datosSaturados, datosSuavizados, sizeOfData );
 	protocoloDeSalida(&octaveFdWrite, pid, &datosBrutos, &datosSaturados);
