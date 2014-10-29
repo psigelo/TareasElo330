@@ -32,15 +32,20 @@ long max(long t_1, long t_2)
 
 void * entradaDatosDesdeCliente(void *null) {
 	int n;
-	char buffer[50];
-	while ((n = recv(fileDescriptorSocketCliente, buffer, 1, 0)) > 0){
+	char buffer[500];
+	while ((n = recv(fileDescriptorSocketCliente, buffer, sizeof(buffer), 0)) > 0){
 
-		clock_gettime(CLOCK_REALTIME, &t_llegada);
-
-		pthread_mutex_lock(&FIFOCliente);
-        write(pipeBuferCliente[1], buffer, n);
-        pthread_cond_signal(&FIFOClienteCambiado);
-        pthread_mutex_unlock(&FIFOCliente);
+		int i ;
+		for ( i = 0; i < n; ++i)
+		{
+			clock_gettime(CLOCK_REALTIME, &t_llegada);
+			usleep(1);
+			pthread_mutex_lock(&FIFOCliente);
+			write(pipeBuferCliente[1], &buffer[i], 1);
+			pthread_cond_signal(&FIFOClienteCambiado);
+			pthread_mutex_unlock(&FIFOCliente);
+		}
+		
         bzero(buffer,50);
 	}
 	pthread_exit(NULL);
@@ -48,7 +53,7 @@ void * entradaDatosDesdeCliente(void *null) {
 
 void * salidaDatosHaciaServidor(void *null) {
 
-	char buffer[50];
+	char buffer[500];
 	struct pollfd fd_FIFOCliente_in;
 	fd_FIFOCliente_in.fd = pipeBuferCliente[0];
 	fd_FIFOCliente_in.events = POLLIN;
@@ -64,9 +69,6 @@ void * salidaDatosHaciaServidor(void *null) {
 			n = read(fd_FIFOCliente_in.fd, buffer, 1);
 
 
-
-
-			
 			// AQUI VA EL TEMA DEL RETARDO.
 			// A modo de prueba se muestra por pantalla
 
@@ -78,12 +80,10 @@ void * salidaDatosHaciaServidor(void *null) {
 	        u_sec = rand()%(long)(t2-t1);
 	        printf("t1: %f\t t2: %f\t tiempo[s]: %f\n",(double)(t1/1000000.0),(double)(t2/1000000.0),(double)((t2-t1)/1000000.0));
 	        usleep(u_sec);
-	        //<<<<<<<<<if((rand()%101) < porcentajePerdida) continue;
-				
-			
-			// HACER SOCKET PARA COMUNICACION CON SERVIDOR
-			sendto(fileDescriptorsocketServidor, buffer, 1, 0, (struct sockaddr*) &datosComunicacionRemoto, length);
-
+	        if((rand()%101) > porcentajePerdida) {			
+				// HACER SOCKET PARA COMUNICACION CON SERVIDOR
+				sendto(fileDescriptorsocketServidor, buffer, n, 0, (struct sockaddr*) &datosComunicacionRemoto, length);
+			}
 
 			clock_gettime(CLOCK_REALTIME, &t_reenvio);
 

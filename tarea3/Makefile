@@ -12,7 +12,7 @@ clientePrueba: ./ArchivosPruebas/clienteUDP.c
 	gcc ./ArchivosPruebas/clienteUDP.c -o ./bin/udpClientePrueba
 
 prueba:
-	./bin/$(EXECUTABLE) 500000 100000 50 56789 45678 
+	./bin/$(EXECUTABLE) 50000 10000 50 56789 45678 
 
 server: ./ArchivosPruebas/serverUDP.c
 	gcc ./ArchivosPruebas/serverUDP.c -o ./bin/udpServer
