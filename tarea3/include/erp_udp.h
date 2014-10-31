@@ -18,12 +18,21 @@
 #include <time.h>
 #include <unistd.h>
 
-void procesamientoDatosDeEntrada();
-
-
-
-#define FIFO_1 "fifo"
-#define FIFO_2 "fifo_2"
 #define TIME_OUT_POLL_MSEC 100
+
+
+void procesamientoDatosDeEntrada();
+long max(long t_1, long t_2);
+void * entradaDatosDesdeCliente(void *null);
+void * salidaDatosHaciaServidor(void *null);
+void * entradaDatosDesdeServidor(void *null);
+void * SalidaDatosHaciaCliente(void *null);
+void exitOnCtrC(int signal);
+void creacionSockets();
+void creacionTubos();
+
+
+
+
 
 #endif

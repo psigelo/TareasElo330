@@ -8,18 +8,21 @@ erp_udp: erp_udp.c
 	mkdir -p bin
 	$(COMPILER) $(COMPILER_FLAGS) ./src/erp_udp.c -o ./bin/$(EXECUTABLE) -lpthread
 
-clientePrueba: ./ArchivosPruebas/clienteUDP.c
-	gcc ./ArchivosPruebas/clienteUDP.c -o ./bin/udpClientePrueba
-
-prueba:
-	./bin/$(EXECUTABLE) 50000 10000 50 56789 45678 
+cliente: ./ArchivosPruebas/clienteUDP.c
+	gcc ./ArchivosPruebas/clienteUDP.c -o ./bin/udpClient
 
 server: ./ArchivosPruebas/serverUDP.c
 	gcc ./ArchivosPruebas/serverUDP.c -o ./bin/udpServer
 
-pruebaClienteUDP:
-	./bin/udpClientePrueba 127.0.0.1
+pruebaCliente:
+	./bin/udpClient 127.0.0.1
+
+pruebaServidor:
+	./bin/udpServer
+
+pruebaERP_UDP:
+	./bin/erp_udp 50000000 4000000 15 56789 45678 
 
 clean:
-	rm -R ./bin
+	rm -Rf ./bin
 

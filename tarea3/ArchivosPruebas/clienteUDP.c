@@ -84,18 +84,16 @@ int main(int argc, char * argv[])  {
     while (1) {
         n = poll( &ClientePoll,1,100);
         if(n>0){
-            printf("1\n");
             if((n = read(0, buf, sizeof(buf))) > 0){
->                sendto(s, buf, n, 0, (struct sockaddr*) &name, len);
+                sendto(s, buf, n, 0, (struct sockaddr*) &name, len);
             }
         }
         else if(n==0){
-            //printf("2\n");
             n = poll(&recepcionPoll,1,100);
             if(n>0){
-                printf("3\n");
                 n = recvfrom(s,mesg,sizeof(mesg),0,(struct sockaddr *)&cliaddr, &len2);
                 printf("\n-----------------------------------------------------\nSe ha recibido: %s\n",mesg);
+                bzero(mesg,sizeof(mesg));
             }
         }
     }

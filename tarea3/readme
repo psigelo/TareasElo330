@@ -1,0 +1,69 @@
+Nombres: 
+	erp_upd : Emulador de Retardo y Pérdida de paquetes en transferencias UDP.
+Sintaxis: 
+	erp_udp retardo_promedio variación_retardo porcentaje_pérdida puerto_local [host_remoto] puerto_remoto 	
+fecha:
+	30/10/2014
+Autores: 
+	Pascal Sigel
+	Oscar Silva
+
+Compilacion
+===========
+
+Para compilar el programa se debe ejecutar (si usted esta en el mismo directorio de este readme, en otro caso debe hubicarse en el mismo directorio que este readme antes):
+
+> make
+
+Ejecucion
+=========
+
+Una vez compilado el programa entonces habra un ejecutable en el directorio bin, en ese caso:
+
+> ./bin/erp_udp retardo_promedio variación_retardo porcentaje_perdida puerto_local [host_remoto] puerto_remoto
+
+Detalles:
+--------
+ retardo_promedio: Se debe ingresar en nanosegundos.
+ variacion_retardo: se debe ingresar en nanosegundos.
+ porcenjate_perdida: se debe ingrasar en porcentaje [0,100].
+ puerto_local: debe ser menor que 65534 y no estar ocupado préviamente por otro servicio.
+ host_remoto: debe ingresarse en formato XXXX.XXXX.XXXX.XXXX donde X: es un numero decimal [0-9].
+ puerto_remoto: es el puerto donde esta alojado el servicio que provee el servidor.
+
+Experimento de muestra
+======================
+
+Además del programa principal se incluyen dos programas de muestra para el testeo del programa:
+
+./src/serverUDP.c :
+	este programa corresponde a un servidor que devuelve lo que recibe de su cliente.
+
+	su compilación es:
+
+	> make server
+
+	y su ejecucion
+
+	make pruebaServidor
+
+./src/clienteUDP :
+	este programa permite escribir mensajes y leer los mensajes que les llega de vuelta en forma paralela.
+
+	su compilación es:
+
+	> make cliente
+
+	y su ejecucion:
+
+	make pruebaCliente
+
+El experimento consiste en abrir tres terminales, 1 para cada ejecutable (erp_udp, server, cliente):
+
+	en cada una ejecutar respectivamente "make pruebaERP_UDP" "make pruebaServidor" "make pruebaCliente".
+
+	Luego debe escribir testo en el terminal cliente: 
+		este texto será enviado al servidor a traves de pruebaERP_UDP con un retardo promedio de 5 seg y una variacion de 4 segundos, o sea entre 1[s] y 9[s] de retardo y con una probabilidad de perdida de 15%.
+		Luego le envia esta información al servidor quien responde con el mismo texto y es nuevamente enviado a través de pruebaERP_UDP con las mismas caracteristicas.
+
+Se puede observar visualmente el resultado.

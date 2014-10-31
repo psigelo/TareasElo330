@@ -1,4 +1,0 @@
-#ifndef PARAMETERS_ERP_UDP_H
-#define PARAMETERS_ERP_UDP_H
-
-#endif

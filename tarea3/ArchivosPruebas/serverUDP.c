@@ -31,5 +31,6 @@ int main(int argc, char**argv)
       printf("Received the following:\n");
       printf("%s",mesg);
       printf("-------------------------------------------------------\n");
+      bzero(mesg, sizeof(mesg));
    }
 }
