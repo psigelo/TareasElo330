@@ -24,8 +24,8 @@ Una vez compilado el programa entonces habra un ejecutable en el directorio bin,
 
 Detalles:
 --------
- retardo_promedio: Se debe ingresar en nanosegundos.
- variacion_retardo: se debe ingresar en nanosegundos.
+ retardo_promedio: Se debe ingresar en microsegundos.
+ variacion_retardo: se debe ingresar en microsegundos.
  porcenjate_perdida: se debe ingresar en porcentaje [0,100].
  puerto_local: debe ser menor que 65534 y no estar ocupado préviamente por otro servicio.
  host_remoto: debe ingresarse en formato XXXX.XXXX.XXXX.XXXX donde X: es un numero decimal [0-9].
