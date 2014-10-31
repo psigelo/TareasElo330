@@ -21,7 +21,7 @@ pruebaServidor:
 	./bin/udpServer
 
 pruebaERP_UDP:
-	./bin/erp_udp 50000000 4000000 15 56789 45678 
+	./bin/erp_udp 5000000 4000000 15 56789 45678 
 
 clean:
 	rm -Rf ./bin

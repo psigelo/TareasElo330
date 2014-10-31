@@ -26,7 +26,7 @@ Detalles:
 --------
  retardo_promedio: Se debe ingresar en nanosegundos.
  variacion_retardo: se debe ingresar en nanosegundos.
- porcenjate_perdida: se debe ingrasar en porcentaje [0,100].
+ porcenjate_perdida: se debe ingresar en porcentaje [0,100].
  puerto_local: debe ser menor que 65534 y no estar ocupado préviamente por otro servicio.
  host_remoto: debe ingresarse en formato XXXX.XXXX.XXXX.XXXX donde X: es un numero decimal [0-9].
  puerto_remoto: es el puerto donde esta alojado el servicio que provee el servidor.
@@ -43,7 +43,7 @@ Además del programa principal se incluyen dos programas de muestra para el test
 
 	> make server
 
-	y su ejecucion
+	y su ejecución
 
 	make pruebaServidor
 
@@ -54,7 +54,7 @@ Además del programa principal se incluyen dos programas de muestra para el test
 
 	> make cliente
 
-	y su ejecucion:
+	y su ejecución:
 
 	make pruebaCliente
 
@@ -62,8 +62,8 @@ El experimento consiste en abrir tres terminales, 1 para cada ejecutable (erp_ud
 
 	en cada una ejecutar respectivamente "make pruebaERP_UDP" "make pruebaServidor" "make pruebaCliente".
 
-	Luego debe escribir testo en el terminal cliente: 
+	Luego debe escribir texto en el terminal cliente: 
 		este texto será enviado al servidor a traves de pruebaERP_UDP con un retardo promedio de 5 seg y una variacion de 4 segundos, o sea entre 1[s] y 9[s] de retardo y con una probabilidad de perdida de 15%.
-		Luego le envia esta información al servidor quien responde con el mismo texto y es nuevamente enviado a través de pruebaERP_UDP con las mismas caracteristicas.
+		Luego le envía esta información al servidor quien responde con el mismo texto y es nuevamente enviado a través de pruebaERP_UDP con las mismas características.
 
 Se puede observar visualmente el resultado.
