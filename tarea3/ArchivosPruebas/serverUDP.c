@@ -1,37 +1,35 @@
-#include <sys/types.h>
+    
+/* Sample UDP server */
+
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
-#define PORTNUMBER  45678
-
-int
-main(void)
+int main(int argc, char**argv)
 {
-    char buf[50];
-    int s, n, len;
-    struct sockaddr_in name;
+   int sockfd,n;
+   struct sockaddr_in servaddr,cliaddr;
+   socklen_t len;
+   char mesg[1000];
 
-    /* Create the socket. "We need a place to receive postcards" */
-    s = socket(AF_INET, SOCK_DGRAM, 0);
+   sockfd=socket(AF_INET,SOCK_DGRAM,0);
 
-    /* Create the address of the server. "We need an address so other can write us" */
-    name.sin_family = AF_INET;
-    name.sin_port = htons(PORTNUMBER);
-    name.sin_addr.s_addr = htonl(INADDR_ANY); /* Use the wildcard address.*/
-    len = sizeof(struct sockaddr_in);
+   bzero(&servaddr,sizeof(servaddr));
+   servaddr.sin_family = AF_INET;
+   servaddr.sin_addr.s_addr=htonl(INADDR_ANY);
+   servaddr.sin_port=htons(45678);
+   bind(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
 
-    /* Bind the socket to the address. "We need to place
-     * the number in our house, so the mailman can gives us our mail" */
-    bind(s, (struct sockaddr *) &name, len);
-
-    /* Read from the socket until end-of-file and
-     * print what we get on the standard output.
-     * "We receive mail, open it, and show it to everyone" */
-    while ((n = recv(s, buf, sizeof(buf), 0)) > 0)
-        write(1, buf, n);
-
-    close(s);
-    exit(0);
+   for (;;)
+   {
+      len = sizeof(cliaddr);
+      n = recvfrom(sockfd,mesg,1000,0,(struct sockaddr *)&cliaddr,&len);
+      sendto(sockfd,mesg,n,0,(struct sockaddr *)&cliaddr,sizeof(cliaddr));
+      printf("-------------------------------------------------------\n");
+      mesg[n] = 0;
+      printf("Received the following:\n");
+      printf("%s",mesg);
+      printf("-------------------------------------------------------\n");
+   }
 }
