@@ -1,0 +1,4 @@
+<map id="ANN_USM::Substrate::ClearSpatialNodeInputs" name="ANN_USM::Substrate::ClearSpatialNodeInputs">
+<area shape="rect" id="node2" href="$class_a_n_n___u_s_m_1_1_hyper_neat.html#a4bd971505c40a36998d0abdffce4ce0d" title="Create all substrate connections according to CPPN&#45;NEAT result. " alt="" coords="222,5,421,46"/>
+<area shape="rect" id="node3" href="$class_a_n_n___u_s_m_1_1_hyper_neat.html#aeedf015b8e1f482d37eaa92d5f884945" title="Allows obtain all final functions of every output node. " alt="" coords="469,5,680,46"/>
+</map>

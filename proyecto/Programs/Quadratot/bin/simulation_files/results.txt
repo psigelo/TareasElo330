@@ -1,0 +1,1512 @@
+
+===========================================   G0 P2
+Joint direction change number: 0
+Joint distance change number frecuency: 0
+Traveled distance : 0
+Distance penalization : 0.0383249
+Penalized distance : 0
+Fitness: 1e-05
+
+===========================================   G0 P3
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.00461588
+Distance penalization : 0.0788098
+Penalized distance : 0.000363777
+Fitness: 0.000100092
+
+===========================================   G0 P8
+Joint direction change number: 52
+Joint distance change number frecuency: 1.15556
+Traveled distance : 0.168183
+Distance penalization : 0.415346
+Penalized distance : 0.0698543
+Fitness: 0.00348802
+
+===========================================   G0 P9
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.00472166
+Distance penalization : 0.0788098
+Penalized distance : 0.000372113
+Fitness: 0.000100096
+
+===========================================   G0 P11
+Joint direction change number: 0
+Joint distance change number frecuency: 0
+Traveled distance : 0
+Distance penalization : 0.0383249
+Penalized distance : 0
+Fitness: 1e-05
+
+===========================================   G0 P12
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.835988
+Distance penalization : 1.249
+Penalized distance : 1.04415
+Fitness: 1.1292
+
+===========================================   G0 P14
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.101118
+Distance penalization : 0.0788098
+Penalized distance : 0.0079691
+Fitness: 0.00014402
+
+===========================================   G0 P16
+Joint direction change number: 0
+Joint distance change number frecuency: 0
+Traveled distance : 0
+Distance penalization : 0.0383249
+Penalized distance : 0
+Fitness: 1e-05
+
+===========================================   G0 P23
+Joint direction change number: 596
+Joint distance change number frecuency: 13.2444
+Traveled distance : 0.154007
+Distance penalization : 4.76191e-25
+Penalized distance : 7.33368e-26
+Fitness: 0.0001
+
+===========================================   G0 P24
+Joint direction change number: 39
+Joint distance change number frecuency: 0.866667
+Traveled distance : 0.00467445
+Distance penalization : 0.259445
+Penalized distance : 0.00121276
+Fitness: 0.000101019
+
+===========================================   G0 P31
+Joint direction change number: 66
+Joint distance change number frecuency: 1.46667
+Traveled distance : 0.0496243
+Distance penalization : 0.628002
+Penalized distance : 0.0311642
+Fitness: 0.000773415
+
+===========================================   G0 P34
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.00226793
+Distance penalization : 0.0788098
+Penalized distance : 0.000178735
+Fitness: 0.000100022
+
+===========================================   G0 P35
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.0376881
+Distance penalization : 0.0788098
+Penalized distance : 0.00297019
+Fitness: 0.000106115
+
+===========================================   G0 P38
+Joint direction change number: 0
+Joint distance change number frecuency: 0
+Traveled distance : 0
+Distance penalization : 0.0383249
+Penalized distance : 0
+Fitness: 1e-05
+
+===========================================   G0 P42
+Joint direction change number: 0
+Joint distance change number frecuency: 0
+Traveled distance : 0
+Distance penalization : 0.0383249
+Penalized distance : 0
+Fitness: 1e-05
+
+===========================================   G0 P43
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.00170016
+Distance penalization : 0.0788098
+Penalized distance : 0.000133989
+Fitness: 0.000100012
+
+===========================================   G0 P45
+Joint direction change number: 26
+Joint distance change number frecuency: 0.577778
+Traveled distance : 0.0118082
+Distance penalization : 0.149085
+Penalized distance : 0.00176043
+Fitness: 0.000102148
+
+===========================================   G0 P46
+Joint direction change number: 0
+Joint distance change number frecuency: 0
+Traveled distance : 0
+Distance penalization : 0.0383249
+Penalized distance : 0
+Fitness: 1e-05
+
+===========================================   G0 P47
+Joint direction change number: 598
+Joint distance change number frecuency: 13.2889
+Traveled distance : 0.116038
+Distance penalization : 2.96938e-25
+Penalized distance : 3.44561e-26
+Fitness: 0.0001
+
+===========================================   G0 P48
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.039769
+Distance penalization : 0.0788098
+Penalized distance : 0.00313419
+Fitness: 0.000106809
+
+===========================================   G0 P49
+Joint direction change number: 13
+Joint distance change number frecuency: 0.288889
+Traveled distance : 0.00303789
+Distance penalization : 0.0788098
+Penalized distance : 0.000239415
+Fitness: 0.00010004
+
+===========================================   G1 P4
+Joint direction change number: 144
+Joint distance change number frecuency: 3.2
+Traveled distance : 0.766779
+Distance penalization : 1.06859
+Penalized distance : 0.819376
+Fitness: 0.592692
+
+===========================================   G1 P5
+Joint direction change number: 177
+Joint distance change number frecuency: 3.93333
+Traveled distance : 0.722597
+Distance penalization : 0.541608
+Penalized distance : 0.391365
+Fitness: 0.112107
+
+===========================================   G1 P7
+Joint direction change number: 91
+Joint distance change number frecuency: 2.02222
+Traveled distance : 0.117184
+Distance penalization : 1.03285
+Penalized distance : 0.121033
+Fitness: 0.0103056
+
+===========================================   G1 P8
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.12115
+Distance penalization : 1.249
+Penalized distance : 1.40032
+Fitness: 2.89311
+
+===========================================   G1 P15
+Joint direction change number: 78
+Joint distance change number frecuency: 1.73333
+Traveled distance : 0.161469
+Distance penalization : 0.828715
+Penalized distance : 0.133812
+Fitness: 0.0125886
+
+===========================================   G1 P21
+Joint direction change number: 133
+Joint distance change number frecuency: 2.95556
+Traveled distance : 0.906213
+Distance penalization : 1.18929
+Penalized distance : 1.07775
+Fitness: 1.23707
+
+===========================================   G1 P31
+Joint direction change number: 26
+Joint distance change number frecuency: 0.577778
+Traveled distance : 0.333003
+Distance penalization : 0.149085
+Penalized distance : 0.0496459
+Fitness: 0.00180987
+
+===========================================   G1 P34
+Joint direction change number: 65
+Joint distance change number frecuency: 1.44444
+Traveled distance : 0.122735
+Distance penalization : 0.611688
+Penalized distance : 0.0750753
+Fitness: 0.00401443
+
+===========================================   G1 P40
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.0462567
+Distance penalization : 1.249
+Penalized distance : 0.0577747
+Fitness: 0.00241635
+
+===========================================   G1 P44
+Joint direction change number: 220
+Joint distance change number frecuency: 4.88889
+Traveled distance : 0.133946
+Distance penalization : 0.0996983
+Penalized distance : 0.0133541
+Fitness: 0.000223619
+
+===========================================   G1 P47
+Joint direction change number: 186
+Joint distance change number frecuency: 4.13333
+Traveled distance : 0.322372
+Distance penalization : 0.409885
+Penalized distance : 0.132135
+Fitness: 0.0122757
+
+===========================================   G2 P2
+Joint direction change number: 104
+Joint distance change number frecuency: 2.31111
+Traveled distance : 0.0708323
+Distance penalization : 1.18419
+Penalized distance : 0.0838789
+Fitness: 0.00498867
+
+===========================================   G2 P4
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.949905
+Distance penalization : 1.249
+Penalized distance : 1.18643
+Fitness: 1.65309
+
+===========================================   G2 P5
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.24783
+Distance penalization : 1.2049
+Penalized distance : 1.5035
+Fitness: 3.79172
+
+===========================================   G2 P8
+Joint direction change number: 133
+Joint distance change number frecuency: 2.95556
+Traveled distance : 0.630105
+Distance penalization : 1.18929
+Penalized distance : 0.749377
+Fitness: 0.47597
+
+===========================================   G2 P9
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.84211
+Distance penalization : 1.249
+Penalized distance : 1.0518
+Fitness: 1.15299
+
+===========================================   G2 P10
+Joint direction change number: 204
+Joint distance change number frecuency: 4.53333
+Traveled distance : 0.489151
+Distance penalization : 0.208209
+Penalized distance : 0.101846
+Fitness: 0.00731562
+
+===========================================   G2 P11
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.73607
+Distance penalization : 1.249
+Penalized distance : 2.16836
+Fitness: 25.0242
+
+===========================================   G2 P12
+Joint direction change number: 91
+Joint distance change number frecuency: 2.02222
+Traveled distance : 0.109294
+Distance penalization : 1.03285
+Penalized distance : 0.112884
+Fitness: 0.00897179
+
+===========================================   G2 P14
+Joint direction change number: 168
+Joint distance change number frecuency: 3.73333
+Traveled distance : 1.13846
+Distance penalization : 0.687602
+Penalized distance : 0.78281
+Fitness: 0.529316
+
+===========================================   G2 P15
+Joint direction change number: 163
+Joint distance change number frecuency: 3.62222
+Traveled distance : 1.98396
+Distance penalization : 0.77164
+Penalized distance : 1.5309
+Fitness: 4.07597
+
+===========================================   G2 P16
+Joint direction change number: 133
+Joint distance change number frecuency: 2.95556
+Traveled distance : 0.7747
+Distance penalization : 1.18929
+Penalized distance : 0.921342
+Fitness: 0.801191
+
+===========================================   G2 P18
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.67576
+Distance penalization : 1.2049
+Penalized distance : 2.01912
+Fitness: 15.8752
+
+===========================================   G2 P19
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.729579
+Distance penalization : 1.249
+Penalized distance : 0.911245
+Fitness: 0.778237
+
+===========================================   G2 P20
+Joint direction change number: 112
+Joint distance change number frecuency: 2.48889
+Traveled distance : 0.592146
+Distance penalization : 1.23581
+Penalized distance : 0.731779
+Fitness: 0.449545
+
+===========================================   G2 P21
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.25795
+Distance penalization : 1.2498
+Penalized distance : 1.57219
+Fitness: 4.54738
+
+===========================================   G2 P23
+Joint direction change number: 119
+Joint distance change number frecuency: 2.64444
+Traveled distance : 0.74498
+Distance penalization : 1.24999
+Penalized distance : 0.931216
+Fitness: 0.824173
+
+===========================================   G2 P24
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 0.187121
+Distance penalization : 1.2498
+Penalized distance : 0.233864
+Fitness: 0.0387376
+
+===========================================   G2 P25
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.951803
+Distance penalization : 1.249
+Penalized distance : 1.1888
+Fitness: 1.66346
+
+===========================================   G2 P26
+Joint direction change number: 146
+Joint distance change number frecuency: 3.24444
+Traveled distance : 0.921103
+Distance penalization : 1.0413
+Penalized distance : 0.959142
+Fitness: 0.892154
+
+===========================================   G2 P28
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.14929
+Distance penalization : 1.249
+Penalized distance : 1.43546
+Fitness: 3.17157
+
+===========================================   G2 P29
+Joint direction change number: 78
+Joint distance change number frecuency: 1.73333
+Traveled distance : 0.0093153
+Distance penalization : 0.828715
+Penalized distance : 0.00771973
+Fitness: 0.000141308
+
+===========================================   G2 P32
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.59536
+Distance penalization : 1.2049
+Penalized distance : 1.92224
+Fitness: 11.9512
+
+===========================================   G2 P33
+Joint direction change number: 133
+Joint distance change number frecuency: 2.95556
+Traveled distance : 0.834416
+Distance penalization : 1.18929
+Penalized distance : 0.992363
+Fitness: 0.979116
+
+===========================================   G2 P34
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.51114
+Distance penalization : 1.2049
+Penalized distance : 1.82077
+Fitness: 8.95353
+
+===========================================   G2 P36
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.02879
+Distance penalization : 1.249
+Penalized distance : 1.28496
+Fitness: 2.14087
+
+===========================================   G2 P39
+Joint direction change number: 130
+Joint distance change number frecuency: 2.88889
+Traveled distance : 0.190431
+Distance penalization : 1.21188
+Penalized distance : 0.230779
+Fitness: 0.037706
+
+===========================================   G2 P41
+Joint direction change number: 65
+Joint distance change number frecuency: 1.44444
+Traveled distance : 0.342808
+Distance penalization : 0.611688
+Penalized distance : 0.209692
+Fitness: 0.0310474
+
+===========================================   G2 P42
+Joint direction change number: 223
+Joint distance change number frecuency: 4.95556
+Traveled distance : 2.05519
+Distance penalization : 0.0856269
+Penalized distance : 0.175979
+Fitness: 0.021798
+
+===========================================   G2 P44
+Joint direction change number: 108
+Joint distance change number frecuency: 2.4
+Traveled distance : 0.583653
+Distance penalization : 1.21451
+Penalized distance : 0.708855
+Fitness: 0.416742
+
+===========================================   G2 P45
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.20627
+Distance penalization : 1.249
+Penalized distance : 1.50663
+Fitness: 3.82316
+
+===========================================   G2 P46
+Joint direction change number: 119
+Joint distance change number frecuency: 2.64444
+Traveled distance : 0.599255
+Distance penalization : 1.24999
+Penalized distance : 0.749062
+Fitness: 0.475487
+
+===========================================   G2 P48
+Joint direction change number: 104
+Joint distance change number frecuency: 2.31111
+Traveled distance : 0.0498859
+Distance penalization : 1.18419
+Penalized distance : 0.0590744
+Fitness: 0.00252186
+
+===========================================   G2 P49
+Joint direction change number: 103
+Joint distance change number frecuency: 2.28889
+Traveled distance : 0.0187339
+Distance penalization : 1.17528
+Penalized distance : 0.0220176
+Fitness: 0.000436076
+
+===========================================   G3 P0
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.31476
+Distance penalization : 1.249
+Penalized distance : 1.64214
+Fitness: 5.48292
+
+===========================================   G3 P2
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.75786
+Distance penalization : 1.2049
+Penalized distance : 2.11804
+Fitness: 21.4106
+
+===========================================   G3 P4
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.28962
+Distance penalization : 1.249
+Penalized distance : 1.61074
+Fitness: 5.03982
+
+===========================================   G3 P5
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.49964
+Distance penalization : 1.2049
+Penalized distance : 1.80691
+Fitness: 8.61256
+
+===========================================   G3 P6
+Joint direction change number: 0
+Joint distance change number frecuency: 0
+Traveled distance : 0
+Distance penalization : 0.0383249
+Penalized distance : 0
+Fitness: 1e-05
+
+===========================================   G3 P8
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.50388
+Distance penalization : 1.2049
+Penalized distance : 1.81202
+Fitness: 8.73678
+
+===========================================   G3 P9
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.66458
+Distance penalization : 1.2049
+Penalized distance : 2.00564
+Fitness: 15.2527
+
+===========================================   G3 P11
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.49699
+Distance penalization : 1.2049
+Penalized distance : 1.80372
+Fitness: 8.53627
+
+===========================================   G3 P13
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.62684
+Distance penalization : 1.2049
+Penalized distance : 1.96017
+Fitness: 13.3432
+
+===========================================   G3 P14
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.54766
+Distance penalization : 1.2049
+Penalized distance : 1.86477
+Fitness: 10.1378
+
+===========================================   G3 P15
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.661028
+Distance penalization : 1.249
+Penalized distance : 0.825624
+Fitness: 0.604079
+
+===========================================   G3 P18
+Joint direction change number: 163
+Joint distance change number frecuency: 3.62222
+Traveled distance : 1.69198
+Distance penalization : 0.77164
+Penalized distance : 1.3056
+Fitness: 2.25948
+
+===========================================   G3 P19
+Joint direction change number: 89
+Joint distance change number frecuency: 1.97778
+Traveled distance : 0.140097
+Distance penalization : 1.00388
+Penalized distance : 0.140641
+Fitness: 0.0139048
+
+===========================================   G3 P23
+Joint direction change number: 109
+Joint distance change number frecuency: 2.42222
+Traveled distance : 1.29745
+Distance penalization : 1.22071
+Penalized distance : 1.58381
+Fitness: 4.69021
+
+===========================================   G3 P24
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 0.165008
+Distance penalization : 1.2498
+Penalized distance : 0.206227
+Fitness: 0.030018
+
+===========================================   G3 P25
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.64272
+Distance penalization : 1.2049
+Penalized distance : 1.9793
+Fitness: 14.1123
+
+===========================================   G3 P28
+Joint direction change number: 65
+Joint distance change number frecuency: 1.44444
+Traveled distance : 0.0100995
+Distance penalization : 0.611688
+Penalized distance : 0.00617777
+Fitness: 0.000126454
+
+===========================================   G3 P32
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.78826
+Distance penalization : 1.249
+Penalized distance : 2.23354
+Fitness: 30.7507
+
+===========================================   G3 P33
+Joint direction change number: 163
+Joint distance change number frecuency: 3.62222
+Traveled distance : 1.93505
+Distance penalization : 0.77164
+Penalized distance : 1.49316
+Fitness: 3.6899
+
+===========================================   G3 P34
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.21292
+Distance penalization : 1.249
+Penalized distance : 1.51494
+Fitness: 3.90777
+
+===========================================   G3 P36
+Joint direction change number: 76
+Joint distance change number frecuency: 1.68889
+Traveled distance : 0.0845094
+Distance penalization : 0.795199
+Penalized distance : 0.0672018
+Fitness: 0.00323521
+
+===========================================   G3 P37
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.53542
+Distance penalization : 1.2049
+Penalized distance : 1.85002
+Fitness: 9.7226
+
+===========================================   G3 P43
+Joint direction change number: 167
+Joint distance change number frecuency: 3.71111
+Traveled distance : 1.4363
+Distance penalization : 0.704339
+Penalized distance : 1.01164
+Fitness: 1.03282
+
+===========================================   G3 P44
+Joint direction change number: 91
+Joint distance change number frecuency: 2.02222
+Traveled distance : 0.610127
+Distance penalization : 1.03285
+Penalized distance : 0.630168
+Fitness: 0.316969
+
+===========================================   G3 P45
+Joint direction change number: 26
+Joint distance change number frecuency: 0.577778
+Traveled distance : 0.167202
+Distance penalization : 0.149085
+Penalized distance : 0.0249274
+Fitness: 0.000530798
+
+===========================================   G3 P46
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.06788
+Distance penalization : 1.249
+Penalized distance : 1.33378
+Fitness: 2.43189
+
+===========================================   G3 P47
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.42006
+Distance penalization : 1.249
+Penalized distance : 1.77365
+Fitness: 7.85109
+
+===========================================   G3 P48
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.15258
+Distance penalization : 1.249
+Penalized distance : 1.43957
+Fitness: 3.20587
+
+===========================================   G4 P0
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.52121
+Distance penalization : 1.2049
+Penalized distance : 1.8329
+Fitness: 9.26403
+
+===========================================   G4 P2
+Joint direction change number: 78
+Joint distance change number frecuency: 1.73333
+Traveled distance : 0.175214
+Distance penalization : 0.828715
+Penalized distance : 0.145203
+Fitness: 0.0148215
+
+===========================================   G4 P3
+Joint direction change number: 65
+Joint distance change number frecuency: 1.44444
+Traveled distance : 0.0251641
+Distance penalization : 0.611688
+Penalized distance : 0.0153926
+Fitness: 0.000264242
+
+===========================================   G4 P6
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.68593
+Distance penalization : 1.2049
+Penalized distance : 2.03137
+Fitness: 16.4661
+
+===========================================   G4 P7
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.616736
+Distance penalization : 1.249
+Penalized distance : 0.770303
+Fitness: 0.508864
+
+===========================================   G4 P9
+Joint direction change number: 94
+Joint distance change number frecuency: 2.08889
+Traveled distance : 2.21372
+Distance penalization : 1.07388
+Penalized distance : 2.37728
+Fitness: 49.2645
+
+===========================================   G4 P11
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.26264
+Distance penalization : 1.249
+Penalized distance : 1.57704
+Fitness: 4.6064
+
+===========================================   G4 P12
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.25679
+Distance penalization : 1.249
+Penalized distance : 1.56973
+Fitness: 4.51776
+
+===========================================   G4 P13
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.29465
+Distance penalization : 1.249
+Penalized distance : 1.61702
+Fitness: 5.12527
+
+===========================================   G4 P18
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.46871
+Distance penalization : 1.2049
+Penalized distance : 1.76964
+Fitness: 7.76437
+
+===========================================   G4 P20
+Joint direction change number: 191
+Joint distance change number frecuency: 4.24444
+Traveled distance : 1.32029
+Distance penalization : 0.345081
+Penalized distance : 0.455607
+Fitness: 0.154848
+
+===========================================   G4 P21
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.9129
+Distance penalization : 1.249
+Penalized distance : 2.38921
+Fitness: 51.2856
+
+===========================================   G4 P24
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.97485
+Distance penalization : 1.249
+Penalized distance : 1.21759
+Fitness: 1.79446
+
+===========================================   G4 P25
+Joint direction change number: 163
+Joint distance change number frecuency: 3.62222
+Traveled distance : 2.03136
+Distance penalization : 0.77164
+Penalized distance : 1.56748
+Fitness: 4.49082
+
+===========================================   G4 P27
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.21764
+Distance penalization : 1.249
+Penalized distance : 1.52083
+Fitness: 3.96903
+
+===========================================   G4 P28
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.39187
+Distance penalization : 1.2049
+Penalized distance : 1.67706
+Fitness: 6.0253
+
+===========================================   G4 P29
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.30104
+Distance penalization : 1.249
+Penalized distance : 1.625
+Fitness: 5.23611
+
+===========================================   G4 P33
+Joint direction change number: 101
+Joint distance change number frecuency: 2.24444
+Traveled distance : 0.343339
+Distance penalization : 1.15594
+Penalized distance : 0.396878
+Fitness: 0.115462
+
+===========================================   G4 P34
+Joint direction change number: 65
+Joint distance change number frecuency: 1.44444
+Traveled distance : 0.0268449
+Distance penalization : 0.611688
+Penalized distance : 0.0164207
+Fitness: 0.000286917
+
+===========================================   G4 P36
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.31277
+Distance penalization : 1.2049
+Penalized distance : 1.58175
+Fitness: 4.6645
+
+===========================================   G4 P39
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.26636
+Distance penalization : 1.2049
+Penalized distance : 1.52584
+Fitness: 4.02179
+
+===========================================   G4 P40
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.09401
+Distance penalization : 1.249
+Penalized distance : 1.36642
+Fitness: 2.64811
+
+===========================================   G4 P41
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.45744
+Distance penalization : 1.2049
+Penalized distance : 1.75607
+Fitness: 7.47838
+
+===========================================   G4 P44
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.36455
+Distance penalization : 1.2049
+Penalized distance : 1.64414
+Fitness: 5.51256
+
+===========================================   G4 P46
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.83748
+Distance penalization : 1.2498
+Penalized distance : 2.29648
+Fitness: 37.6887
+
+===========================================   G4 P48
+Joint direction change number: 104
+Joint distance change number frecuency: 2.31111
+Traveled distance : 0.541933
+Distance penalization : 1.18419
+Penalized distance : 0.641752
+Fitness: 0.330487
+
+===========================================   G4 P49
+Joint direction change number: 78
+Joint distance change number frecuency: 1.73333
+Traveled distance : 0.0122467
+Distance penalization : 0.828715
+Penalized distance : 0.010149
+Fitness: 0.000171398
+
+===========================================   G5 P0
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.24726
+Distance penalization : 1.249
+Penalized distance : 1.55783
+Fitness: 4.37727
+
+===========================================   G5 P4
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.23463
+Distance penalization : 1.249
+Penalized distance : 1.54206
+Fitness: 4.19804
+
+===========================================   G5 P5
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.14625
+Distance penalization : 1.249
+Penalized distance : 1.43167
+Fitness: 3.14024
+
+===========================================   G5 P8
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 2.03368
+Distance penalization : 1.2498
+Penalized distance : 2.5417
+Fitness: 87.0479
+
+===========================================   G5 P9
+Joint direction change number: 104
+Joint distance change number frecuency: 2.31111
+Traveled distance : 0.62122
+Distance penalization : 1.18419
+Penalized distance : 0.735643
+Fitness: 0.455252
+
+===========================================   G5 P11
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.57308
+Distance penalization : 1.249
+Penalized distance : 1.96478
+Fitness: 13.5241
+
+===========================================   G5 P12
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.42001
+Distance penalization : 1.2049
+Penalized distance : 1.71097
+Fitness: 6.60756
+
+===========================================   G5 P14
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.10242
+Distance penalization : 1.249
+Penalized distance : 1.37692
+Fitness: 2.72169
+
+===========================================   G5 P15
+Joint direction change number: 131
+Joint distance change number frecuency: 2.91111
+Traveled distance : 1.37115
+Distance penalization : 1.2049
+Penalized distance : 1.65209
+Fitness: 5.63192
+
+===========================================   G5 P17
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.37627
+Distance penalization : 1.249
+Penalized distance : 1.71897
+Fitness: 6.75357
+
+===========================================   G5 P19
+Joint direction change number: 169
+Joint distance change number frecuency: 3.75556
+Traveled distance : 0.00633302
+Distance penalization : 0.670931
+Penalized distance : 0.00424902
+Fitness: 0.000112514
+
+===========================================   G5 P20
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.48351
+Distance penalization : 1.2498
+Penalized distance : 1.8541
+Fitness: 9.83548
+
+===========================================   G5 P22
+Joint direction change number: 105
+Joint distance change number frecuency: 2.33333
+Traveled distance : 0.683656
+Distance penalization : 1.19258
+Penalized distance : 0.815316
+Fitness: 0.585383
+
+===========================================   G5 P26
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.27485
+Distance penalization : 1.249
+Penalized distance : 1.59228
+Fitness: 4.79735
+
+===========================================   G5 P30
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 2.20874
+Distance penalization : 1.249
+Penalized distance : 2.75872
+Fitness: 194.433
+
+===========================================   G5 P31
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.103696
+Distance penalization : 1.249
+Penalized distance : 0.129517
+Fitness: 0.0117951
+
+===========================================   G5 P33
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.95146
+Distance penalization : 1.249
+Penalized distance : 2.43737
+Fitness: 60.4255
+
+===========================================   G5 P37
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.07414
+Distance penalization : 1.249
+Penalized distance : 1.3416
+Fitness: 2.48205
+
+===========================================   G5 P40
+Joint direction change number: 52
+Joint distance change number frecuency: 1.15556
+Traveled distance : 0.358932
+Distance penalization : 0.415346
+Penalized distance : 0.149081
+Fitness: 0.0156245
+
+===========================================   G5 P41
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.74075
+Distance penalization : 1.249
+Penalized distance : 2.1742
+Fitness: 25.4856
+
+===========================================   G5 P47
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.28437
+Distance penalization : 1.2498
+Penalized distance : 1.60521
+Fitness: 4.96583
+
+===========================================   G5 P48
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.87969
+Distance penalization : 1.2498
+Penalized distance : 2.34924
+Fitness: 44.8522
+
+===========================================   G6 P0
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 2.08722
+Distance penalization : 1.2498
+Penalized distance : 2.60861
+Fitness: 110.805
+
+===========================================   G6 P1
+Joint direction change number: 122
+Joint distance change number frecuency: 2.71111
+Traveled distance : 0.0745407
+Distance penalization : 1.24684
+Penalized distance : 0.0929406
+Fitness: 0.00610533
+
+===========================================   G6 P2
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.9354
+Distance penalization : 1.249
+Penalized distance : 2.41731
+Fitness: 56.4171
+
+===========================================   G6 P3
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.30726
+Distance penalization : 1.249
+Penalized distance : 1.63277
+Fitness: 5.34649
+
+===========================================   G6 P4
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.5706
+Distance penalization : 1.249
+Penalized distance : 1.96168
+Fitness: 13.402
+
+===========================================   G6 P7
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.75653
+Distance penalization : 1.2498
+Penalized distance : 2.19531
+Fitness: 27.2346
+
+===========================================   G6 P12
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.433
+Distance penalization : 1.2498
+Penalized distance : 1.79097
+Fitness: 8.23808
+
+===========================================   G6 P14
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.62625
+Distance penalization : 1.249
+Penalized distance : 2.03119
+Fitness: 16.4569
+
+===========================================   G6 P16
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.76638
+Distance penalization : 1.249
+Penalized distance : 2.20621
+Fitness: 28.1889
+
+===========================================   G6 P18
+Joint direction change number: 129
+Joint distance change number frecuency: 2.86667
+Traveled distance : 0.527099
+Distance penalization : 1.2183
+Penalized distance : 0.642163
+Fitness: 0.330973
+
+===========================================   G6 P19
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.78714
+Distance penalization : 1.249
+Penalized distance : 2.23214
+Fitness: 30.6131
+
+===========================================   G6 P22
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.92409
+Distance penalization : 1.2498
+Penalized distance : 2.40473
+Fitness: 54.0526
+
+===========================================   G6 P23
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.56037
+Distance penalization : 1.2498
+Penalized distance : 1.95015
+Fitness: 12.9588
+
+===========================================   G6 P24
+Joint direction change number: 78
+Joint distance change number frecuency: 1.73333
+Traveled distance : 0.0106093
+Distance penalization : 0.828715
+Penalized distance : 0.00879207
+Fitness: 0.000153582
+
+===========================================   G6 P25
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 2.0256
+Distance penalization : 1.2498
+Penalized distance : 2.5316
+Fitness: 83.9759
+
+===========================================   G6 P26
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.90298
+Distance penalization : 1.249
+Penalized distance : 2.37683
+Fitness: 49.1896
+
+===========================================   G6 P27
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.44772
+Distance penalization : 1.249
+Penalized distance : 1.8082
+Fitness: 8.64392
+
+===========================================   G6 P28
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.8988
+Distance penalization : 1.249
+Penalized distance : 2.3716
+Fitness: 48.3338
+
+===========================================   G6 P29
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 2.1265
+Distance penalization : 1.249
+Penalized distance : 2.656
+Fitness: 131.911
+
+===========================================   G6 P32
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.74862
+Distance penalization : 1.2498
+Penalized distance : 2.18543
+Fitness: 26.4001
+
+===========================================   G6 P33
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.970211
+Distance penalization : 1.249
+Penalized distance : 1.21179
+Fitness: 1.76733
+
+===========================================   G6 P34
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.69042
+Distance penalization : 1.2498
+Penalized distance : 2.11269
+Fitness: 21.0615
+
+===========================================   G6 P35
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.3954
+Distance penalization : 1.249
+Penalized distance : 1.74285
+Fitness: 7.21095
+
+===========================================   G6 P39
+Joint direction change number: 105
+Joint distance change number frecuency: 2.33333
+Traveled distance : 0.91513
+Distance penalization : 1.19258
+Penalized distance : 1.09137
+Fitness: 1.28334
+
+===========================================   G6 P40
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 2.04575
+Distance penalization : 1.249
+Penalized distance : 2.55514
+Fitness: 91.3299
+
+===========================================   G6 P41
+Joint direction change number: 104
+Joint distance change number frecuency: 2.31111
+Traveled distance : 0.596668
+Distance penalization : 1.18419
+Penalized distance : 0.706568
+Fitness: 0.413568
+
+===========================================   G6 P42
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.87818
+Distance penalization : 1.249
+Penalized distance : 2.34585
+Fitness: 44.35
+
+===========================================   G6 P43
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.9941
+Distance penalization : 1.2498
+Penalized distance : 2.49223
+Fitness: 73.0912
+
+===========================================   G6 P44
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.35865
+Distance penalization : 1.249
+Penalized distance : 1.69695
+Fitness: 6.35978
+
+===========================================   G6 P45
+Joint direction change number: 91
+Joint distance change number frecuency: 2.02222
+Traveled distance : 0.289935
+Distance penalization : 1.03285
+Penalized distance : 0.299459
+Fitness: 0.0642309
+
+===========================================   G6 P46
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 2.05499
+Distance penalization : 1.249
+Penalized distance : 2.56668
+Fitness: 95.1927
+
+===========================================   G6 P47
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.83327
+Distance penalization : 1.249
+Penalized distance : 2.28976
+Fitness: 36.8706
+
+===========================================   G6 P48
+Joint direction change number: 120
+Joint distance change number frecuency: 2.66667
+Traveled distance : 0.806416
+Distance penalization : 1.24956
+Penalized distance : 1.00766
+Fitness: 1.02154
+
+===========================================   G6 P49
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.77886
+Distance penalization : 1.249
+Penalized distance : 2.2218
+Fitness: 29.62
+
+===========================================   G7 P0
+Joint direction change number: 78
+Joint distance change number frecuency: 1.73333
+Traveled distance : 0.0172286
+Distance penalization : 0.828715
+Penalized distance : 0.0142776
+Fitness: 0.000241308
+
+===========================================   G7 P5
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.7926
+Distance penalization : 1.249
+Penalized distance : 2.23895
+Fitness: 31.2877
+
+===========================================   G7 P10
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 2.16684
+Distance penalization : 1.249
+Penalized distance : 2.70639
+Fitness: 159.29
+
+===========================================   G7 P17
+Joint direction change number: 147
+Joint distance change number frecuency: 3.26667
+Traveled distance : 0.808288
+Distance penalization : 1.02715
+Penalized distance : 0.830234
+Fitness: 0.612587
+
+===========================================   G7 P18
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 0.0134888
+Distance penalization : 1.249
+Penalized distance : 0.0168475
+Fitness: 0.000296761
+
+===========================================   G7 P19
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 2.00146
+Distance penalization : 1.249
+Penalized distance : 2.49983
+Fitness: 75.0645
+
+===========================================   G7 P20
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.099
+Distance penalization : 1.249
+Penalized distance : 1.37265
+Fitness: 2.69153
+
+===========================================   G7 P21
+Joint direction change number: 91
+Joint distance change number frecuency: 2.02222
+Traveled distance : 0.0312779
+Distance penalization : 1.03285
+Penalized distance : 0.0323053
+Fitness: 0.000823652
+
+===========================================   G7 P23
+Joint direction change number: 129
+Joint distance change number frecuency: 2.86667
+Traveled distance : 0.0671512
+Distance penalization : 1.2183
+Penalized distance : 0.0818102
+Fitness: 0.00474995
+
+===========================================   G7 P26
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.46309
+Distance penalization : 1.249
+Penalized distance : 1.8274
+Fitness: 9.12198
+
+===========================================   G7 P27
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 2.13949
+Distance penalization : 1.249
+Penalized distance : 2.67222
+Fitness: 140.118
+
+===========================================   G7 P29
+Joint direction change number: 117
+Joint distance change number frecuency: 2.6
+Traveled distance : 1.90893
+Distance penalization : 1.249
+Penalized distance : 2.38425
+Fitness: 50.4339
+
+===========================================   G7 P30
+Joint direction change number: 118
+Joint distance change number frecuency: 2.62222
+Traveled distance : 1.77118
+Distance penalization : 1.2498
+Penalized distance : 2.21363
+Fitness: 28.8603
