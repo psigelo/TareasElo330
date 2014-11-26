@@ -133,6 +133,7 @@ int main(int argc, char ** argv){
 	creacionHilos();
 	creacionNEAT( argc, argv );
 
+
 }
 
 
@@ -170,7 +171,6 @@ void procesarDatosHyperNEAT (char * rutaArchivoHyperNEAT){
 	HAY QUE PROBAR SI FUNCIONA
 */
 void procesarDatosClientes 	(char * rutaArchivoClientes ){
-
 	/*
 		Se pasa el archivo a un string.
 	*/
@@ -193,19 +193,20 @@ void procesarDatosClientes 	(char * rutaArchivoClientes ){
 	pchPuerto 	= strtok (NULL  ,	delimiters); // Es el primer puerto
 
 	// ahora se puede comenzar con el loop.
+	int count=0;
+	while (pchPuerto != NULL)
+	{	
+		char * host = (char *) malloc(strlen(pchHost)*sizeof(char)+1);
+		char * puerto = (char *) malloc(strlen(pchPuerto)*sizeof(char)+1);
 
-	while (pchHost != NULL)
-	{
-		char * host = (char *) malloc(strlen(pchHost)*sizeof(char));
-		char * puerto = (char *) malloc(strlen(pchPuerto)*sizeof(char));
-
-		memcpy(host,pchHost,strlen(pchHost));
-		memcpy(puerto,pchPuerto,strlen(pchPuerto));
-
+		memcpy(host,pchHost,strlen(pchHost)+1);
+		memcpy(puerto,pchPuerto,strlen(pchPuerto)+1);
+		cerr << "host  " << host<< endl;
+		cerr << "puerto  " << puerto << endl;
 		hostClientes.push_back  (host  );
-		puertoClientes.push_back(pchPuerto);
+		puertoClientes.push_back(puerto);
 
-		pchHost   = strtok (NULL, delimiters);
+		pchHost  = strtok (NULL, delimiters);
 		pchPuerto = strtok (NULL, delimiters);
 	}
 
@@ -223,12 +224,13 @@ void creacionHilos()
 
 	pthread_t threads[hostClientes.size()];
 	int rc;
-	unsigned int i[hostClientes.size()];
+	int * i = (int *)malloc(hostClientes.size()*sizeof(int));
 	
-	for( unsigned j=0; j < hostClientes.size(); j++ ){
-		cout << "main() : creating thread, " << j << endl;
+	for( int j=0; j < (int)hostClientes.size(); j++ ){
+		//cout << "main() : creating thread, " << j << endl;
 		i[j]=j;
-		rc = pthread_create(&threads[j], NULL, HiloCliente, (void *) &(i[j]));
+		cerr << "i" << i[j] << endl;
+		rc = pthread_create(&threads[j], NULL, HiloCliente, (void *)  &(i[j])  );
 	  if (rc){
 	     cerr << "Error:unable to create thread," << rc << endl;
 	     exit(-1);
@@ -241,19 +243,24 @@ void creacionHilos()
 
 void * HiloCliente(void * tid)
 {
+	sleep(1);
 	int n, s, len;
 	int read_fd;
-	int id;
+	unsigned int id;
 	int count;
     struct hostent *hp;
     struct sockaddr_in name;
     int organismoElecto;
 	id =  * ((int*) tid);
-   
+  
 	
+
+
 	hp = gethostbyname(hostClientes.at(id));
+	cerr << "hostClientes.at(id)" << hostClientes.at(id) << endl;
     s = socket(AF_INET, SOCK_STREAM, 0);
     name.sin_family = AF_INET;
+    cerr << "atoi( puertoClientes.at(id) )" << puertoClientes.at(id)  << endl;
     name.sin_port = htons( atoi( puertoClientes.at(id) ) );
     memcpy(&name.sin_addr, hp->h_addr_list[0], hp->h_length);
     len = sizeof(struct sockaddr_in);
@@ -279,14 +286,13 @@ void * HiloCliente(void * tid)
 
 	pthread_mutex_lock(&sincronizacionInicial);
 		if(neatIsReady != 1){
-			pthread_cond_wait(&NEAT_OK,&sincronizacionInicial);
+			pthread_cond_wait(&NEAT_OK, &sincronizacionInicial);
 		}
 	pthread_mutex_unlock(&sincronizacionInicial);
 
 
 	while(1){
 		// SIEMPRE Y CUANDO SE MANTENGA LA CONEXI´ONSE DEBE SACAR UN ORGANISMO DE LOS QUE QUEDEN Y SE DEBE ENVIAR AL CLIENTE EL ORGANISMO.
-
 		pthread_mutex_lock(&mutex_ObtenerOrganismo);
 		if(organismosDisponibles > 0){
 			// Se debe revizar esto porque es muy poco eficiente la solucion usada.
@@ -305,9 +311,6 @@ void * HiloCliente(void * tid)
 
 
 			// AHORA SE ESPERA POR EL FITNESS
-
-			
-	        
 	        while(1){
 	       		n = poll( &resepcionSocket ,1,10); 
 	       		if(n>0){
@@ -330,6 +333,7 @@ void * HiloCliente(void * tid)
 			pthread_mutex_unlock(&mutex_cantidadHebrasListas);
 
 			pthread_cond_wait(&HayOrganismosNuevos, &mutex_ObtenerOrganismo);
+			pthread_mutex_unlock(&mutex_ObtenerOrganismo);
 
 			pthread_mutex_lock(&mutex_cantidadHebrasListas);
 			cantidadHebrasListas--;
@@ -340,7 +344,7 @@ void * HiloCliente(void * tid)
 
 	}
 
-
+	cerr << "CERRANDO HILo" << endl;
 	pthread_exit(NULL);
 }
 
@@ -348,28 +352,28 @@ void * HiloCliente(void * tid)
 void creacionNEAT(int argc, char ** argv){
 	char ruta[]=".";
 	poblacion = new Population(argv[2],argv[3], (char *) "NEAT_QUADATOT_MULTI" ,ruta);
-	cerr << poblacion->GENERATIONS << "\t" << poblacion->POPULATION_MAX << "\t" << poblacion->organisms.size() << endl;
-
+	//cerr << poblacion->GENERATIONS << "\t" << poblacion->POPULATION_MAX << "\t" << poblacion->organisms.size() << endl;
 	organismosDisponibles=poblacion->POPULATION_MAX;
 	
 
 	pthread_mutex_lock(&sincronizacionInicial);
-		if(neatIsReady == 1){
+			neatIsReady = 1;
 			pthread_cond_broadcast(&NEAT_OK);
-		}
 	pthread_mutex_unlock(&sincronizacionInicial);
 
+
 	for (int i = 0; i < poblacion->GENERATIONS; ++i){
+		pthread_mutex_lock(&mutex_Inutil);
 		pthread_cond_wait(&TodasHebrasEstanListas, &mutex_Inutil);
+		pthread_mutex_unlock(&mutex_Inutil);
 		poblacion->epoch();
 		organismosDisponibles=poblacion->POPULATION_MAX;
 		pthread_cond_broadcast(&HayOrganismosNuevos);
 		poblacion->print_to_file_currrent_generation();
 
 	}
-
-	cout << "Fitness champion: " << poblacion->fitness_champion << "\n\n"<< endl;
-	cout << poblacion->champion.ANN_function() << endl;
-	cout << poblacion->champion << endl;
+	cerr << "Fitness champion: " << poblacion->fitness_champion << "\n\n"<< endl;
+	cerr << poblacion->champion.ANN_function() << endl;
+	cerr << poblacion->champion << endl;
 	
 }
