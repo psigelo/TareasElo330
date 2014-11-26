@@ -163,6 +163,9 @@ namespace ANN_USM{
 			*/
 			void 				reset_past_values();
 
+			void 				loadFromArray(char buffer[]);
+
+
 			vector <connection_gene> 	Lconnection_genes; //List of connections genes
 			vector <node_gene> 			Lnode_genes;
 			double 						fitness;
