@@ -7,16 +7,65 @@ int main(int argc, char* argv[])
 {	
 	srand (time(0));
 
+	//SOCKET//////////////////////////////////////////////////
+
+	socklen_t len;
+    struct sockaddr_in name;
+
+    // Create the socket. 
+    s = socket(AF_INET, SOCK_STREAM, 0);
+
+    // Create the address of the server. 
+    name.sin_family = AF_INET;
+    name.sin_port = htons(PORTNUMBER);
+    name.sin_addr.s_addr = htonl(INADDR_ANY); // Use the wildcard address.
+    len = sizeof(struct sockaddr_in);
+
+    // Bind the socket to the address. 
+   if( bind(s, (struct sockaddr *) &name, len) != 0)
+		printf("bind error");
+
+    // Listen for connections.  
+    listen(s, 5);
+
+    // Accept a connection.  
+    ns = accept(s, (struct sockaddr *) &name, &len);
+
+    // Read from the socket until end-of-file and
+    // print what we get on the standard output.  
+    printf("Connection from : %s\n",inet_ntoa(name.sin_addr));    
+    
+    struct pollfd socketCliente;
+    socketCliente.fd = ns;
+    socketCliente.events = POLLIN;
+
+    //////////////////////////////////////////////////////////
+
+    char h_file[] = "./hyperneat.txt";
+    char n_file[] = "./neat_organism.txt";
+    
+    archivoHYPERNEAT = fopen(h_file,"w");
+
+   	while(1){
+        n = poll( &socketCliente ,1,TIME_OUT_POLL_MSEC); 
+
+        if(n>0){
+            clog << "Adquiriendo el archivo de configuracion de HyperNeat ..." << endl;
+            int count;
+            ioctl(socketCliente.fd, FIONREAD, &count);
+    		char buf[count+1];
+            recv( ns, buf, count, 0);
+            fprintf( archivoHYPERNEAT, "%s", buf );
+    		fclose(archivoHYPERNEAT);
+    		clog << "Archivo adquirido exitosamente" << endl;
+            break;
+        }
+    }
+
 	RobotSimulator * simulator = new RobotSimulator();
 	Fitness * fitness = new Fitness();
 	bool flag = true;
-
-	if(argc < 4)
-	{
-		cerr << "ERROR: The number of arguments is incorrect" << endl;
-		return -1;	
-	} 
-	
+		
 	simulator->simStart();
 	// ============= VREP INITIALIZATIONS ============= //			
 
@@ -65,7 +114,7 @@ int main(int argc, char* argv[])
 		pass.push_back(aux_pass);
 	}
 
-	HyperNeat * hyperneat = new HyperNeat(pass, next, argv[1], argv[2], argv[3]);
+	HyperNeat * hyperneat = new HyperNeat(pass, next, h_file);
 
 	// ================================================ //
 
@@ -73,13 +122,32 @@ int main(int argc, char* argv[])
 	{
 		while (simulator->simGetConnectionId() != -1)
 		{
+
+			archivoNEAT = fopen(n_file,"w");
+
+		   	while(1){
+		        n = poll( &socketCliente ,1,TIME_OUT_POLL_MSEC); 
+
+		        if(n>0){
+		            clog << "Adquiriendo el archivo de organismo de NEAT ..." << endl;
+		            int count;
+		            ioctl(socketCliente.fd, FIONREAD, &count);
+    				char buf[count+1];
+		            recv( ns, buf, count, 0);
+		            fprintf( archivoNEAT, "%s", buf );
+		    		fclose(archivoNEAT);
+		    		clog << "Archivo adquirido exitosamente" << endl;
+		            break;
+		        }
+		    }
+
 			double sim_time = 0;					
 			int step = 0;
 			vector < double > sum_next ((int)joints.size(),0.0);
 
 			fitness->resetPopulationValues();
 
-			if(!hyperneat->CreateSubstrateConnections(argv[3])) continue;
+			if(!hyperneat->CreateSubstrateConnections(n_file)) continue;
 
 			for(int i = 0; i < (int)joints.size(); i++)
 			{
@@ -142,27 +210,31 @@ int main(int argc, char* argv[])
 
 			simulator->simStopSimulation(simx_opmode_oneshot_wait);
 
-			break;
+			if(flag)
+			{						
+				fitness->calcFitness();
+				//fitness->getFitness();
+
+				clog << "Joint direction change number: " << fitness->getJointDirectionChangeNumber() << endl;
+				clog << "Joint distance change number frecuency: " << fitness->getFrecuency() << endl;
+				clog << "Traveled distance : " << fitness->getDistance() << endl;
+				clog << "Distance penalization : " << fitness->getDistancePenalization() << endl;
+				clog << "Penalized distance : " << fitness->getPenalizedDistance() << endl;
+				clog << "Fitness: " << fitness->getFitness() << endl;
+			}
+
+			char s_fitness[50];
+   			snprintf(s_fitness,50,"%f",fitness->getFitness());
+   			write(ns, s_fitness, strlen(s_fitness)+1);
+
 		}
-	}
-
-	if(flag)
-	{						
-		fitness->calcFitness();
-		//fitness->getFitness();
-
-		clog << "Joint direction change number: " << fitness->getJointDirectionChangeNumber() << endl;
-		clog << "Joint distance change number frecuency: " << fitness->getFrecuency() << endl;
-		clog << "Traveled distance : " << fitness->getDistance() << endl;
-		clog << "Distance penalization : " << fitness->getDistancePenalization() << endl;
-		clog << "Penalized distance : " << fitness->getPenalizedDistance() << endl;
-		clog << "Fitness: " << fitness->getFitness() << endl;
-	}
-
-	//ENVIAR FITNESS!!!!!
+	}	
 
 	simulator->simFinish();
 
+
+    close(s);
+    close(ns);
 	delete(simulator);
 	delete(hyperneat);
 	

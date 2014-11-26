@@ -24,6 +24,22 @@ HyperNeat::HyperNeat(vector < double * > inputs, vector < double * > outputs, ch
 
 	clog << "\t-> Deserialize ok!" << endl;
 }
+
+HyperNeat::HyperNeat(vector < double * > inputs, vector < double * > outputs, char * path1)
+{
+	// ============================= READING JSON FILE ============================= //
+	ifstream file;
+	file.open(path1);
+	string hyperneat_info((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+	// ============================================================================= //	
+
+	substrate = new Substrate(inputs,outputs);
+	
+	HJsonDeserialize(hyperneat_info);
+
+	clog << "\t-> Deserialize ok!" << endl;
+}
+
 HyperNeat::~HyperNeat()
 {
 	free(substrate);

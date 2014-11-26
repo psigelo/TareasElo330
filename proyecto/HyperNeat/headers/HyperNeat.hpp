@@ -47,6 +47,13 @@ namespace ANN_USM{
 		 */
 		HyperNeat(vector < double * > inputs, vector < double * > outputs, char * path1, char * path2, char * path3);
 		/**
+		 * \brief Constructor with parameters
+		 * \param inputs Input vector
+		 * \param outputs Output vector
+		 * \param hyperneat_info_file Json file
+		 */
+		HyperNeat(vector < double * > inputs, vector < double * > outputs, char * path1);
+		/**
 		 * \brief Destructor
 		 */
 		~HyperNeat();
